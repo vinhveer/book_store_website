@@ -1,0 +1,55 @@
+.navbar {
+    font-family: 'Segoe UI Semibold', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+.navbar-brand img {
+    width: auto;
+    height: 20px;
+}
+
+.form-control {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+.nav-link.active {
+    color: #c62e46;
+}
+
+.btn-login:hover {
+    background-color: #c62e46;
+    color: #fff;
+}
+
+.btn-login {
+    border: 2px solid #c62e46;
+}
+
+.btn-register {
+    background-color: #c62e46;
+    color: #fff;
+}
+
+.btn-register:hover {
+    background-color: #ea527b;
+}
+
+.btn-search {
+    background-color: #c62e46;
+    color: #fff;
+}
+
+.btn-search:hover {
+    background-color: #8b75b5;
+    color: #fff;
+}
+
+.input-search {
+    border: none;
+    border: 1px solid #cdcdcd;
+}
+
+.modal {
+    padding-top: 0px;
+}

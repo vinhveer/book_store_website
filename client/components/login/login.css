@@ -1,0 +1,26 @@
+.modal-header {
+    padding: 16px;
+    border-bottom: none;
+}
+
+.modal-body label {
+    font-size: 14px;
+    font-family: 'Segoe UI Semibold', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.modal-body .btn {
+    font-size: 14px;
+    font-family: 'Segoe UI Semibold', Tahoma, Geneva, Verdana, sans-serif;
+    border: 2px solid #c62e46;
+    background-color: #c62e46;
+}
+
+.modal-body {
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.modal-body .form-select {
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

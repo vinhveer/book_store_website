@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary ps-3 pe-3 fixed-top">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary ps-3 pe-3 fixed-top pt-1 pb-1">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src=<?php echo $path . "assets/light_theme_logo.png" ?> alt="" srcset="">
@@ -38,80 +38,67 @@
                     </button>
                 </form>
 
-                <div class="d-flex">
-                    <button href="#" class="btn btn-login" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng
-                        nhập</button>
-                    <button href="#" class="btn btn-register ms-2 m-0" data-bs-toggle="modal" data-bs-target="#registerModal">Đăng ký</button>
-                </div>
+                <?php
+                session_start();
+                $_SESSION["login_success"] = true;
+                $_SESSION["username"] = "Doge";
+                if ($_SESSION["login_success"] == false) {
+                    ?>
+                    <div class="d-flex">
+                        <button href="#" class="btn btn-login" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng
+                            nhập</button>
+                        <button href="#" class="btn btn-register ms-2 m-0" data-bs-toggle="modal"
+                            data-bs-target="#registerModal">Đăng ký</button>
+                    </div>
+                    <?php
+                } else {
+                    ?>
+                    <div class="d-flex pe-2 align-items-center">
+                        <a class="btn btn-cart cart" href="cart.php">
+                            <i class="bi bi-basket"></i> <span>Giỏ hàng của tôi</span>
+                        </a>
+                    </div>
+
+                    <button class="d-flex btn p-0 align-items-center avatar" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <img src="assets/Original_Doge_meme.jpg" class="img-avatar">
+                    </button>
+
+                    <?php
+                }
+                ?>
             </div>
         </div>
     </nav>
 
-
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title fs-5" id="loginModalLabel">Đăng nhập</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="post">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Tên đăng nhập</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Mật khẩu</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox" id="remember" name="remember">
-                            <label class="form-check-label" for="remember">Ghi nhớ đăng nhập</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Đăng nhập</button>
-                        <div class="mt-3">
-                            Chưa có tài khoản? <a href="#" class="text-decoration-none">Đăng ký ngay.</a>
-                        </div>
-                    </form>
-                </div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="p-3">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="d-flex align-items-center justify-content-center">
+                <img src="assets/Original_Doge_meme.jpg" class="img-offcanva">
             </div>
+            <div class="text-center mt-3">
+                <h3>Nguyen Quang Vinh</h3>
+                <h6>vinh.nqu.64cntt@ntu.edu.vn</h6>
+            </div>
+            <ul class="list-group list-group-flush mt-3">
+                <li class="list-group-item d-flex align-items-center">
+                    <span><i class="bi bi-person-circle"></i></span> Thông tin cá nhân
+                </li>
+                <li class="list-group-item d-flex align-items-center">
+                    <span><i class="bi bi-bag"></i></span> Đơn hàng
+                </li>
+                <li class="list-group-item d-flex align-items-center">
+                    <span><i class="bi bi-box-arrow-left"></i></span>
+                    Đăng xuất
+                </li>
+            </ul>
         </div>
     </div>
 
-
-    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title fs-5" id="registerModalLabel">Đăng ký</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="post">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Tên đăng nhập</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Mật khẩu</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Đăng ký</button>
-                        <div class="mt-3">
-                            Đã có tài khoản? <a href="#" class="text-decoration-none" data-bs-dismiss="modal"
-                                data-bs-toggle="modal" data-bs-target="#loginModal">Đăng nhập ngay.</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <?php include ("components/login/login.php") ?>
 </body>
 
 </html>

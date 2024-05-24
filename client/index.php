@@ -16,6 +16,7 @@
     <?php
     $path = "";
 
+    include 'connect.php';
     include ("components/navbar/navbar.php");
     include ("components/home/header.php");
     include ("components/home/category.php");

@@ -10,7 +10,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" method="post">
+                <form action="components/login/process.php" method="post">
                     <div class="mb-3">
                         <label for="username" class="form-label">Tên đăng nhập</label>
                         <input type="text" class="form-control" id="username" name="username" required>
@@ -23,16 +23,16 @@
                         <input class="form-check-input" type="checkbox" id="remember" name="remember">
                         <label class="form-check-label" for="remember">Ghi nhớ đăng nhập</label>
                     </div>
-                    <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                    <button type="submit" class="btn btn-primary" name="login">Đăng nhập</button>
                     <div class="mt-3">
-                        Chưa có tài khoản? <a href="#registerModal" class="text-decoration-none switch-modal">Đăng ký ngay.</a>
+                        Chưa có tài khoản? <a href="#registerModal" class="text-decoration-none" data-bs-dismiss="modal"
+                            data-bs-toggle="modal" data-bs-target="#registerModal">Đăng ký ngay.</a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
 
 <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -42,24 +42,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" method="post">
-                    <p>
-                        Hoàn thành một số thông tin cơ bản sau
-                    </p>
+                <form action="components/login/process.php" method="post">
+                    <p>Hoàn thành một số thông tin cơ bản sau</p>
                     <div class="mb-3">
-                        <label for="username" class="form-label">Họ và tên</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
+                        <label for="full_name" class="form-label">Họ và tên</label>
+                        <input type="text" class="form-control" id="full_name" name="full_name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="dateofbirth" class="form-label">Ngày sinh</label>
-                        <input type="date" class="form-control" id="dateofbirth" name="dateofbirth" required>
+                        <label for="date_of_birth" class="form-label">Ngày sinh</label>
+                        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
                     </div>
                     <div class="mb-3">
                         <label for="gender" class="form-label">Giới tính</label>
                         <select class="form-select" id="gender" name="gender" required>
                             <option value="">Chọn giới tính</option>
-                            <option value="male">Nam</option>
-                            <option value="female">Nữ</option>
+                            <option value="1">Nam</option>
+                            <option value="0">Nữ</option>
                             <option value="other">Khác</option>
                         </select>
                     </div>
@@ -76,12 +74,16 @@
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="mb-3">
+                        <label for="username" class="form-label">Tên đăng nhập</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="password" class="form-label">Mật khẩu (Tối thiểu 8 ký tự)</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Đăng ký</button>
+                    <button type="submit" class="btn btn-primary" name="register">Đăng ký</button>
                     <div class="mt-3">
-                        Đã có tài khoản? <a href="#loginModal" class="text-decoration-none switch-modal" data-bs-dismiss="modal"
+                        Đã có tài khoản? <a href="#loginModal" class="text-decoration-none" data-bs-dismiss="modal"
                             data-bs-toggle="modal" data-bs-target="#loginModal">Đăng nhập ngay.</a>
                     </div>
                 </form>
@@ -89,6 +91,7 @@
         </div>
     </div>
 </div>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {

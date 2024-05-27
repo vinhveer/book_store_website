@@ -25,9 +25,10 @@
         include 'components/sidebar/sidebar.php';
         ?>
         <div class="main" style="">
+
             <main class="content px-3 py-4">
             <?php
-                include 'components/accounts/customer.php';
+                include 'components/my_info/my.php';
             ?>
             </main>
         </div>

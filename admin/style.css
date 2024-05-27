@@ -1,10 +1,30 @@
-::after,
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+/* ::after,
 ::before {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+} */
+:root {
+    --light: #f6f6f9;
+    --primary: #1976d2;
+    --light-primary: #cfe8ff;
+    --grey: #eee;
+    --dark-grey: #aaaaaa;
+    --dark: #363949;
+    --danger: #d32f2f;
+    --light-danger: #fecdd3;
+    --warning: #fbc02d;
+    --light-warning: #fff2c6;
+    --success: #388e3c;
+    --light-success: #bbf7d0;
+  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
-
 a {
     text-decoration: none;
 }
@@ -160,7 +180,21 @@ a.sidebar-link:hover {
     background-color: #f5f5f5;
     box-shadow: 0 0 2rem 0 rgba(33, 37, 41, .1);
 }
-
+.navbar-brand{
+    font-size: 24px;
+    font-weight: 700;
+    height: 56px;
+    color:var(--primary);
+    padding: 0 24px 0 0;
+    display: flex;
+    align-items: center;
+    grid-gap: 24px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
 .navbar-expand .navbar-collapse {
     min-width: 200px;
 }
@@ -169,7 +203,150 @@ a.sidebar-link:hover {
     height: 40px;
     width: 40px;
 }
+ main .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap: 16px;
+    flex-wrap: wrap;
+  }
 
+   main .header .left h1 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--dark);
+  }
 
+   main .header .left .breadcrumb {
+    display: flex;
+    align-items: center;
+    grid-gap: 16px;
+  }
 
+   main .header .left .breadcrumb li {
+    color: var(--dark);
+  }
+
+   main .header .left .breadcrumb li a {
+    color: var(--dark-grey);
+    /* pointer-events: none; */
+  }
+
+   main .header .left .breadcrumb li a.active {
+    color: var(--primary);
+    /* pointer-events: none; */
+  }
+
+   main .header .report {
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 36px;
+    background: var(--primary);
+    color: var(--light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 10px;
+    font-weight: 500;
+  }
+  nav button {
+    width: 80px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--primary);
+    color: var(--light);
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 0 36px 36px 0;
+    cursor: pointer;
+  }
+  nav i{
+    padding-top: 4px;
+    font-size: 35px;
+  }
+  nav .notif {
+    font-size: 20px;
+    position: relative;
+  }
+  nav .notif i{
+    color: #1976d2;
+  }
+
+  nav .notif::before{
+    content: "";
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    background: var(--danger);
+    border-radius: 50%;
+    color: var(--light);
+    border: 2px solid var(--light);
+    font-weight: 700;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 @media (min-width: 768px) {}
+main .insights{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-gap: 24px;
+    margin-top: 20px;
+}
+
+main .insights .li{
+    padding: 20px;
+    background: var(--light);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    grid-gap: 24px;
+    cursor: pointer;
+}
+
+main .insights .li .bx{
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    font-size: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main .insights .li:nth-child(1) .bx{
+    background: var(--light-primary);
+    color: var(--primary);
+}
+
+main .insights .li:nth-child(2) .bx{
+    background: var(--light-warning);
+    color: var(--warning);
+}
+
+main .insights .li:nth-child(3) .bx{
+    background: var(--light-success);
+    color: var(--success);
+}
+
+main .insights .li:nth-child(4) .bx{
+    background: var(--light-danger);
+    color: var(--danger);
+}
+
+main .insights .li .info h3{
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+main .insights .li .info p{
+    color: var(--dark);
+}

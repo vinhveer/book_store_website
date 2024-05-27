@@ -124,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["sbm_edit"])) {
         if ($result_update_account === false) {
             die( print_r( sqlsrv_errors(), true));
         }else{
-            if ($edit == 1) header("location: ../../account_customer.php?page_layout=admin&page=$page");
+            if ($edit == 1) header("location: ../../account_admin.php?page_layout=admin&page=$page");
             else if($edit == 2) header("location: ../../account_customer.php?page_layout=customer&page=$page");
             else if($edit == 3 )  header("location: ../../account_employee.php?page_layout=employee&page=$page");
             else  echo "Lỗi role không tồn tại: " . sqlsrv_errors($dbconnect);

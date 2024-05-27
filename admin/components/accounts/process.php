@@ -24,7 +24,7 @@
             $_SESSION['username_exists'] = true;
             $_SESSION['form_data'] = $_POST; // Store the form data
 
-            if($role == 1)  header("location: ../../account_customer.php");
+            if($role == 1)  header("location: ../../account_admin.php");
             else if ($role == 2) header("location: ../../account_customer.php");
             else if ($role == 3) header("location: ../../account_employee.php");
         }else{

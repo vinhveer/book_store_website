@@ -220,7 +220,7 @@
 <div id="editAccountForm" class="modal fade" tabindex="-1" aria-labelledby="editAccountFormLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form id="editAccountFormData" action="components/accounts/process.php?edit=3" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+            <form id="editAccountFormData" action="components/accounts/process.php?edit=3&page=<?php echo (isset($_GET['page']))?$_GET['page']:"1";?>" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                 <div class="modal-header">
                     <h5 class="modal-title" id="editAccountFormLabel">Chỉnh sửa tài khoản</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

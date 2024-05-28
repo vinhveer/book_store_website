@@ -1,4 +1,4 @@
-<?php include'sql_account/account_customer.php';
+<?php include'sql_account/account_employee.php';
 ?>
 <head>
     <link rel="stylesheet" href="components/accounts/account.css">
@@ -9,7 +9,7 @@
             <h4 class="mb-3">Danh sách tài khoản</h4>
         </div>
         <div class="col-md-6">
-            <form class="d-flex col-10" action="account_customer.php" method="POST">
+            <form class="d-flex col-10" action="account_employee.php" method="POST">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                     name="tukhoa" value="">
                     <button class="btn btn-outline-primary" type="submit" name="timkiem" value="find">Search</button>
@@ -46,50 +46,50 @@
         <tbody>
             <?php
                 $i = ($currentPage - 1) * $recordsPerPage;
-                while ($row_account_customer = sqlsrv_fetch_array($result_account_customer)) {
+                while ($row_account_employee = sqlsrv_fetch_array($result_account_employee)) {
                     ?>
                     <tr>
                         <td scope="row" class="text-center"><?php $i++; echo $i ?></td>
-                        <td class="d-flex justify-content-center"><img src="<?php echo $row_account_customer['image_user'] ?>" alt="Avatar" class="rounded-circle" width="30" height="30"></td>
-                        <td><?php echo $row_account_customer['full_name'] ?></td>
-                        <td><?php echo $row_account_customer['username'] ?></td>
-                        <td><?php echo $row_account_customer['password'] ?></td>
+                        <td class="d-flex justify-content-center"><img src="<?php echo $row_account_employee['image_user'] ?>" alt="Avatar" class="rounded-circle" width="30" height="30"></td>
+                        <td><?php echo $row_account_employee['full_name'] ?></td>
+                        <td><?php echo $row_account_employee['username'] ?></td>
+                        <td><?php echo $row_account_employee['password'] ?></td>
                         <td>
                         <div class="action-buttons d-flex justify-content-center">
                             <button class="btn btn-sm btn-warning me-1 d-flex align-items-center edit-account-button" data-user='<?php
-                                    $dateOfBirth = $row_account_customer['date_of_birth'];
+                                    $dateOfBirth = $row_account_employee['date_of_birth'];
                                     $data = array(
-                                        'user_id' => $row_account_customer['user_id'],
-                                        'full_name' => $row_account_customer['full_name'],
-                                        'username' => $row_account_customer['username'],
+                                        'user_id' => $row_account_employee['user_id'],
+                                        'full_name' => $row_account_employee['full_name'],
+                                        'username' => $row_account_employee['username'],
                                         'date_of_birth' => $dateOfBirth->format('Y-m-d'),
-                                        'email'=> $row_account_customer['email'],
-                                        'image_user'=> $row_account_customer['image_user'],
-                                        'role_name'=> $row_account_customer['role_name'],
-                                        'role_id'=> $row_account_customer['role_id'],
-                                        'password'=> $row_account_customer['password'],
-                                        'address'=> $row_account_customer['address'],
-                                        'gender'=> $row_account_customer['gender'],
-                                        'phone'=> $row_account_customer['phone']
+                                        'email'=> $row_account_employee['email'],
+                                        'image_user'=> $row_account_employee['image_user'],
+                                        'role_name'=> $row_account_employee['role_name'],
+                                        'role_id'=> $row_account_employee['role_id'],
+                                        'password'=> $row_account_employee['password'],
+                                        'address'=> $row_account_employee['address'],
+                                        'gender'=> $row_account_employee['gender'],
+                                        'phone'=> $row_account_employee['phone']
                                     );
                                     echo json_encode($data);?>
                                     '><i class='bx bx-edit bx-sm me-1'></i>Edit</button>
-                            <button type="button" class="btn btn-sm btn-danger me-1 d-flex align-items-center delete-account-button" data-user-id="<?php echo $row_account_customer['user_id']; ?>" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
+                            <button type="button" class="btn btn-sm btn-danger me-1 d-flex align-items-center delete-account-button" data-user-id="<?php echo $row_account_employee['user_id']; ?>" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
                             <button class="btn btn-sm btn-success me-1 d-flex align-items-center show-account-button" data-user='<?php
-                                    $dateOfBirth = $row_account_customer['date_of_birth'];
+                                    $dateOfBirth = $row_account_employee['date_of_birth'];
                                     $data = array(
-                                        'user_id' => $row_account_customer['user_id'],
-                                        'full_name' => $row_account_customer['full_name'],
-                                        'username' => $row_account_customer['username'],
+                                        'user_id' => $row_account_employee['user_id'],
+                                        'full_name' => $row_account_employee['full_name'],
+                                        'username' => $row_account_employee['username'],
                                         'date_of_birth' => $dateOfBirth->format('Y-m-d'),
-                                        'email'=> $row_account_customer['email'],
-                                        'image_user'=> $row_account_customer['image_user'],
-                                        'role_name'=> $row_account_customer['role_name'],
-                                        'role_id'=> $row_account_customer['role_id'],
-                                        'password'=> $row_account_customer['password'],
-                                        'address'=> $row_account_customer['address'],
-                                        'gender'=> $row_account_customer['gender'],
-                                        'phone'=> $row_account_customer['phone']
+                                        'email'=> $row_account_employee['email'],
+                                        'image_user'=> $row_account_employee['image_user'],
+                                        'role_name'=> $row_account_employee['role_name'],
+                                        'role_id'=> $row_account_employee['role_id'],
+                                        'password'=> $row_account_employee['password'],
+                                        'address'=> $row_account_employee['address'],
+                                        'gender'=> $row_account_employee['gender'],
+                                        'phone'=> $row_account_employee['phone']
                                     );
                                     echo json_encode($data);?>'><i class='bx bxs-show bx-sm me-1'></i>Show</button>
                         </div>
@@ -103,17 +103,17 @@
             <ul class="pagination">
                 <li class="page-item btn-outline-primary">
                 <?php if($currentPage > 1): ?>
-                        <a class="page-link" href="?page_layout=customer&page=<?php echo $currentPage-1; ?>" aria-label="Previous">
+                        <a class="page-link" href="?page_layout=employee&page=<?php echo $currentPage-1; ?>" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                 <?php endif; ?>
                 </li>
                 <?php for ($page = $startPage; $page <= $endPage; $page++): ?>
-                    <li class="page-item <?php if($page == $currentPage) echo 'active'; ?>"><a class="page-link" href="?page_layout=customer&page=<?php echo $page; ?>"><?php echo $page; ?></a></li>
+                    <li class="page-item <?php if($page == $currentPage) echo 'active'; ?>"><a class="page-link" href="?page_layout=employee&page=<?php echo $page; ?>"><?php echo $page; ?></a></li>
                 <?php endfor; ?>
                 <li class="page-item btn-outline-primary">
                     <?php if($currentPage < $totalPages): ?>
-                        <a class="page-link" href="?page_layout=customer&page=<?php echo $currentPage+1; ?>" aria-label="Next">
+                        <a class="page-link" href="?page_layout=employee&page=<?php echo $currentPage+1; ?>" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                      </a>
                 <?php endif; ?>
@@ -127,7 +127,7 @@
 <div id="addAccountForm" class="modal fade" tabindex="-1" aria-labelledby="addAccountFormLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form id="addAccountFormData" action="components/accounts/process.php?role=1" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+            <form id="addAccountFormData" action="components/accounts/process.php?role=3" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                 <div class="modal-header">
                     <h5 class="modal-title" id="addAccountFormLabel">Thêm tài khoản</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -220,7 +220,7 @@
 <div id="editAccountForm" class="modal fade" tabindex="-1" aria-labelledby="editAccountFormLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form id="editAccountFormData" action="components/accounts/process.php?edit=1&page=<?php echo (isset($_GET['page']))?$_GET['page']:"1";?>" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+            <form id="editAccountFormData" action="components/accounts/process.php?edit=3&page=<?php echo (isset($_GET['page']))?$_GET['page']:"1";?>" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                 <div class="modal-header">
                     <h5 class="modal-title" id="editAccountFormLabel">Chỉnh sửa tài khoản</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -321,7 +321,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <form id="deletePostForm" action="components/accounts/process.php?delete=1" method="post">
+                <form id="deletePostForm" action="components/accounts/process.php?delete=3" method="post">
                     <input type="hidden" name="user_id" id="deleteUserId">
                     <button type="submit" class="btn btn-danger" name="delete_user">Xóa</button>
                 </form>

@@ -10,7 +10,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="components/login/process.php" method="post">
+                <form action="components\login\process.php" method="post">
                     <div class="mb-3">
                         <label for="username" class="form-label">Tên đăng nhập</label>
                         <input type="text" class="form-control" id="username" name="username" required>

@@ -27,8 +27,8 @@
                         <a class="nav-link" href="stationery.php">Văn phòng phẩm</a>
                     </li>
                 </ul>
-                <form class="search d-flex me-auto w-50" role="search">
-                    <input class="form-control input-search rounded-start rounded-0" type="search" placeholder="Tìm kiếm sản phẩm" aria-label="Search">
+                <form class="search d-flex me-auto w-50" action="search.php" method="GET" role="search">
+                    <input class="form-control input-search rounded-start rounded-0" name="search" type="search" placeholder="Tìm kiếm sản phẩm" aria-label="Search">
                     <button class="btn btn-search rounded-end rounded-0" type="submit" style="width: 100px">
                         <span>Tìm kiếm</span>
                     </button>

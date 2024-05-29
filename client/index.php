@@ -18,10 +18,17 @@
 
     include 'connect.php';
     include ("components/navbar/navbar.php");
+    include ("login.php");
     include ("components/home/header.php");
     include ("components/home/category.php");
     include ("components/card/card.php");
-    include ("components/card/card.php");
+
+    $sql = "SELECT TOP 6 b.book_name, p.product_image, p.product_price, p.product_id
+    FROM books b
+    JOIN products p ON b.product_id = p.product_id;";
+    card_display($sql, "Các loại sách phổ biến");
+    
+
     include ("components/footer/footer.php");
     ?>
 

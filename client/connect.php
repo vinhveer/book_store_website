@@ -6,8 +6,10 @@ $serverName = "VinhVeer\VINHVEER"; //serverName\instanceName
 $connectionInfo = array("Database" => "BookStore");
 $conn = sqlsrv_connect($serverName, $connectionInfo);
 
-if ($conn) {
-    echo "<script>console.log('Connection established.')</script>";
-} else {
-    echo "<script>console.log('Connection could not be established.')</script>";
-}
+session_start();
+
+// if ($conn) {
+//     echo "<script>console.log('Connection established.')</script>";
+// } else {
+//     echo "<script>console.log('Connection could not be established.')</script>";
+// }

@@ -40,7 +40,7 @@
 
                 <?php
                 session_start();
-                $_SESSION["login_success"] = true;
+                $_SESSION["login_success"] = false;
                 $_SESSION["username"] = "Doge";
                 if ($_SESSION["login_success"] == false) {
                     ?>

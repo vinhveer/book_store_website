@@ -15,7 +15,7 @@
             </div>
             <div class="col-md-4">
                 <div class="d-flex justify-content-end">
-                    <a href="index.php" class="btn btn-primary">Mua hàng với các sản phẩm đã chọn</a>
+                    <a href="placeorder.php" class="btn btn-primary">Mua hàng với các sản phẩm đã chọn</a>
                 </div>
                 <div class="d-flex justify-content-end mt-2">
                     <input type="checkbox" id="checkAll" class="form-check-input">

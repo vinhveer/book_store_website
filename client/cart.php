@@ -21,6 +21,7 @@
     <?php
     $path = "";
 
+    include 'connect.php';
     include ("components/navbar/navbar.php");
     include ("components/cart/header.php");
     include ("components/cart/card_cart.php");

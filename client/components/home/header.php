@@ -11,14 +11,17 @@
     <div class="container-fluid p-0">
         <div id="carouselExample" class="carousel slide">
             <div class="carousel-inner">
-                <div class="carousel-item active p-0">
-                    <img src="assets/slider_2.webp" class="d-block w-100" alt="...">
+            <div class="carousel-item active p-0">
+                    <img src="assets/2.png" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item p-0">
                     <img src="assets/slider_3.webp" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item p-0">
                     <img src="assets/slider_1.webp" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item p-0">
+                    <img src="assets/1.png" class="d-block w-100" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">

@@ -1,3 +1,8 @@
 .btn {
     font-size: 14px;
 }
+
+.btn-primary {
+    background-color: #c62e46;
+    border: #c62e46;
+}

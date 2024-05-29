@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style.css">
     <style>
         body {
-            padding-top: 80px;
+            padding-top: 56px;
         }
     </style>
 </head>
@@ -23,6 +23,7 @@
 
     include 'connect.php';
     include ("components/navbar/navbar.php");
+    include ("login.php");
     include ("components/cart/header.php");
     include ("components/cart/card_cart.php");
     include ("components/footer/footer.php");

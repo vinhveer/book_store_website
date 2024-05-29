@@ -9,13 +9,13 @@ function card($imgSrc, $title, $price, $productId)
     return '
         <div class="col-md-2 p-2">
             <div class="card">
-                <img src="' . $imgSrc . '" class="card-img-top" alt="...">
+                <img src="' . htmlspecialchars($imgSrc) . '" class="card-img-top" alt="...">
                 <div class="overlay d-flex p-0" style="color: white">
-                    <button class="btn w-50 add-to-cart" data-product-id="' . $productId . '">
+                    <button class="btn w-50 add-to-cart" data-product-id="' . htmlspecialchars($productId) . '">
                         <i class="bi bi-cart-plus-fill"></i>
                         <p>Thêm vào giỏ hàng</p>
                     </button>
-                    <button class="btn w-50">
+                    <button class="btn w-50 text-decoration-none" onclick="window.location.href=\'details.php?id=' . htmlspecialchars($productId) . '\'">
                         <i class="bi bi-list-ul"></i>
                         <p>Xem chi tiết</p>
                     </button>
@@ -28,19 +28,19 @@ function card($imgSrc, $title, $price, $productId)
         </div>
         
         <!-- Modal -->
-        <div class="modal fade" id="quantityModal' . $productId . '" tabindex="-1" aria-labelledby="quantityModalLabel' . $productId . '" aria-hidden="true">
+        <div class="modal fade" id="quantityModal' . htmlspecialchars($productId) . '" tabindex="-1" aria-labelledby="quantityModalLabel' . htmlspecialchars($productId) . '" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="quantityModalLabel' . $productId . '">Chọn số lượng</h5>
+                        <h5 class="modal-title" id="quantityModalLabel' . htmlspecialchars($productId) . '">Chọn số lượng</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="number" id="quantity' . $productId . '" class="form-control" value="1" min="1">
+                        <input type="number" id="quantity' . htmlspecialchars($productId) . '" class="form-control" value="1" min="1">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-primary confirm-add-to-cart" data-product-id="' . $productId . '">Thêm vào giỏ hàng</button>
+                        <button type="button" class="btn btn-primary confirm-add-to-cart" data-product-id="' . htmlspecialchars($productId) . '">Thêm vào giỏ hàng</button>
                     </div>
                 </div>
             </div>
@@ -82,47 +82,47 @@ function card_display($sql, $title, $conn)
 ?>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', function() {
-            const productId = this.getAttribute('data-product-id');
-            const modalId = '#quantityModal' + productId;
-            const modal = new bootstrap.Modal(document.querySelector(modalId));
-            modal.show();
-        });
-    });
-
-    document.querySelectorAll('.confirm-add-to-cart').forEach(button => {
-        button.addEventListener('click', function() {
-            const productId = this.getAttribute('data-product-id');
-            const quantity = document.querySelector('#quantity' + productId).value;
-
-            console.log(`Product ID: ${productId}, Quantity: ${quantity}`); // Debug log
-
-            fetch('add_to_cart.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    product_id: productId,
-                    quantity: quantity,
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Thêm vào giỏ hàng thành công!');
-                } else {
-                    console.log('Có lỗi xảy ra: ' + data.error);
-                }
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.getAttribute('data-product-id');
                 const modalId = '#quantityModal' + productId;
-                const modal = bootstrap.Modal.getInstance(document.querySelector(modalId));
-                modal.hide();
-            })
-            .catch(error => console.error('Error:', error));
+                const modal = new bootstrap.Modal(document.querySelector(modalId));
+                modal.show();
+            });
+        });
+
+        document.querySelectorAll('.confirm-add-to-cart').forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.getAttribute('data-product-id');
+                const quantity = document.querySelector('#quantity' + productId).value;
+
+                console.log(`Product ID: ${productId}, Quantity: ${quantity}`); // Debug log
+
+                fetch('add_to_cart.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        quantity: quantity,
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Thêm vào giỏ hàng thành công!');
+                        } else {
+                            console.log('Có lỗi xảy ra: ' + data.error);
+                        }
+                        const modalId = '#quantityModal' + productId;
+                        const modal = bootstrap.Modal.getInstance(document.querySelector(modalId));
+                        modal.hide();
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
         });
     });
-});
 
 </script>

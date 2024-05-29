@@ -28,17 +28,7 @@
     JOIN products p ON b.product_id = p.product_id;";
     card_display($sql, "Các loại sách phổ biến", $conn);
     
-    $sql = "SELECT TOP 6 b.book_name, p.product_image, p.product_price, p.product_id
-    FROM books b
-    JOIN products p ON b.product_id = p.product_id;";
-    card_display($sql, "Các loại sách phổ biến", $conn);
     
-    $sql = "SELECT TOP 6 b.book_name, p.product_image, p.product_price, p.product_id
-    FROM books b
-    JOIN products p ON b.product_id = p.product_id;";
-    card_display($sql, "Các loại sách phổ biến", $conn);
-    
-
     include ("components/footer/footer.php");
     ?>
 

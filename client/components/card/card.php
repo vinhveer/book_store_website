@@ -68,61 +68,62 @@ function card_display($sql, $title, $conn)
         <div class='row mt-2'>";
 
     while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-        echo card($row['product_image'], $row['book_name'], $row['product_price'], $row['product_id']);
+        if (isset($row['book_name'])) {
+            $product_name = $row['book_name'];
+        } else {
+            $product_name = $row['others_product_name'];
+        }
+        echo card($row['product_image'], $product_name, $row['product_price'], $row['product_id']);
     }
 
     echo "
         </div>
     </div>";
-
-    sqlsrv_free_stmt($result);
-    sqlsrv_close($conn);
 }
 
 ?>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', function() {
-            const productId = this.getAttribute('data-product-id');
-            const modalId = '#quantityModal' + productId;
-            const modal = new bootstrap.Modal(document.querySelector(modalId));
-            modal.show();
-        });
-    });
-
-    document.querySelectorAll('.confirm-add-to-cart').forEach(button => {
-        button.addEventListener('click', function() {
-            const productId = this.getAttribute('data-product-id');
-            const quantity = document.querySelector('#quantity' + productId).value;
-
-            console.log(`Product ID: ${productId}, Quantity: ${quantity}`); // Debug log
-
-            fetch('add_to_cart.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    product_id: productId,
-                    quantity: quantity,
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Thêm vào giỏ hàng thành công!');
-                } else {
-                    console.log('Có lỗi xảy ra: ' + data.error);
-                }
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
                 const modalId = '#quantityModal' + productId;
-                const modal = bootstrap.Modal.getInstance(document.querySelector(modalId));
-                modal.hide();
-            })
-            .catch(error => console.error('Error:', error));
+                const modal = new bootstrap.Modal(document.querySelector(modalId));
+                modal.show();
+            });
+        });
+
+        document.querySelectorAll('.confirm-add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                const quantity = document.querySelector('#quantity' + productId).value;
+
+                console.log(`Product ID: ${productId}, Quantity: ${quantity}`); // Debug log
+
+                fetch('add_to_cart.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            product_id: productId,
+                            quantity: quantity,
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Thêm vào giỏ hàng thành công!');
+                        } else {
+                            console.log('Có lỗi xảy ra: ' + data.error);
+                        }
+                        const modalId = '#quantityModal' + productId;
+                        const modal = bootstrap.Modal.getInstance(document.querySelector(modalId));
+                        modal.hide();
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
         });
     });
-});
-
 </script>

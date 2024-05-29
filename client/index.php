@@ -28,15 +28,29 @@
     JOIN products p ON b.product_id = p.product_id;";
     card_display($sql, "Các loại sách phổ biến", $conn);
     
-    $sql = "SELECT TOP 6 b.book_name, p.product_image, p.product_price, p.product_id
+    $sqlh2 = "SELECT TOP 2 b.book_name, p.product_image, p.product_price, p.product_id
     FROM books b
-    JOIN products p ON b.product_id = p.product_id;";
-    card_display($sql, "Các loại sách phổ biến", $conn);
+    JOIN products p ON b.product_id = p.product_id
+    JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+    WHERE bc.book_category_name = 'Self-Help'
+    UNION
+    SELECT TOP 2 b.book_name, p.product_image, p.product_price, p.product_id
+    FROM books b
+    JOIN products p ON b.product_id = p.product_id
+    JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+    WHERE bc.book_category_name = 'Health & Wellness'
+    UNION
+    SELECT TOP 2 b.book_name, p.product_image, p.product_price, p.product_id
+    FROM books b
+    JOIN products p ON b.product_id = p.product_id
+    JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+    WHERE bc.book_category_name = 'Mind & Body'";
+    card_display($sqlh2, "Phát triển bản thân", $conn);
     
-    $sql = "SELECT TOP 6 b.book_name, p.product_image, p.product_price, p.product_id
-    FROM books b
-    JOIN products p ON b.product_id = p.product_id;";
-    card_display($sql, "Các loại sách phổ biến", $conn);
+    // $sql = "SELECT TOP 6 b.book_name, p.product_image, p.product_price, p.product_id
+    // FROM books b
+    // JOIN products p ON b.product_id = p.product_id;";
+    // card_display($sql, "Các loại sách phổ biến", $conn);
     
 
     include ("components/footer/footer.php");

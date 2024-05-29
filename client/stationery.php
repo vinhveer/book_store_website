@@ -26,9 +26,34 @@
     include ("login.php");
     include ("components/home/category.php");
     include ("components/card/card.php");
-    include ("components/card/card.php");
-    include ("components/card/card.php");
-    include ("components/card/card.php");
+
+    $sqlh4 ="SELECT TOP 7 od.others_product_name, p.product_image, p.product_price, p.product_id
+    FROM others_products  od
+    JOIN products p ON od.product_id = p.product_id 
+    WHERE od.others_product_name LIKE 'bút%'
+    EXCEPT
+    SELECT od.others_product_name, p.product_image, p.product_price, p.product_id
+    FROM others_products  od
+    JOIN products p ON od.product_id = p.product_id 
+    WHERE od.others_product_name LIKE 'bút gel%'";
+    card_display($sqlh4, "Đồ dùng học tập", $conn);
+
+    $sqlh5 = "SELECT TOP 6 od.others_product_name, p.product_image, p.product_price, p.product_id
+    FROM others_products  od
+    JOIN products p ON od.product_id = p.product_id 
+    WHERE od.others_product_name LIKE '%Thiên Long%'";
+    card_display($sqlh5, "Sản phẩm Thiên Long", $conn);
+
+    $sqlh6 ="SELECT TOP 3 od.others_product_name, p.product_image, p.product_price, p.product_id
+    FROM others_products  od
+    JOIN products p ON od.product_id = p.product_id 
+    WHERE od.others_product_name LIKE 'máy tính%'
+    UNION
+    SELECT TOP 3 od.others_product_name, p.product_image, p.product_price, p.product_id
+    FROM others_products  od
+    JOIN products p ON od.product_id = p.product_id 
+    WHERE od.others_product_name LIKE '%gel%'";
+    card_display($sqlh6, "Đồ dùng văn phòng", $conn);
     ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

@@ -47,11 +47,14 @@
     WHERE bc.book_category_name = 'Mind & Body'";
     card_display($sqlh2, "Phát triển bản thân", $conn);
     
-    // $sql = "SELECT TOP 6 b.book_name, p.product_image, p.product_price, p.product_id
-    // FROM books b
-    // JOIN products p ON b.product_id = p.product_id;";
-    // card_display($sql, "Các loại sách phổ biến", $conn);
-    
+    $sqlh3 = "SELECT TOP 6 * FROM(
+        SELECT od.others_product_name, p.product_image, p.product_price, p.product_id
+        FROM others_products  od
+            JOIN products p ON od.product_id = p.product_id 
+        GROUP BY od.others_product_name, p.product_image, p.product_price, p.product_id
+        HAVING p.product_price = '20000'
+        ) AS cheap";
+    card_display($sqlh3, "Sản phẩm giá mềm", $conn);
 
     include ("components/footer/footer.php");
     ?>

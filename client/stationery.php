@@ -27,15 +27,17 @@
     include ("components/home/category.php");
     include ("components/card/card.php");
 
-    $sqlh4 ="SELECT TOP 7 od.others_product_name, p.product_image, p.product_price, p.product_id
-    FROM others_products  od
-    JOIN products p ON od.product_id = p.product_id 
-    WHERE od.others_product_name LIKE 'bút%'
-    EXCEPT
-    SELECT od.others_product_name, p.product_image, p.product_price, p.product_id
-    FROM others_products  od
-    JOIN products p ON od.product_id = p.product_id 
-    WHERE od.others_product_name LIKE 'bút gel%'";
+    $sqlh4 ="SELECT TOP 6 * FROM(
+        SELECT od.others_product_name, p.product_image, p.product_price, p.product_id
+            FROM others_products  od
+            JOIN products p ON od.product_id = p.product_id 
+            WHERE od.others_product_name LIKE 'bút%'
+            EXCEPT
+            SELECT od.others_product_name, p.product_image, p.product_price, p.product_id
+            FROM others_products  od
+            JOIN products p ON od.product_id = p.product_id 
+            WHERE od.others_product_name LIKE 'bút gel%'
+        ) AS othersproducts";
     card_display($sqlh4, "Đồ dùng học tập", $conn);
 
     $sqlh5 = "SELECT TOP 6 od.others_product_name, p.product_image, p.product_price, p.product_id

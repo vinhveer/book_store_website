@@ -229,6 +229,14 @@
                     <div class="d-flex justify-content-end mb-3 position-absolute" style="top: 20px; right: 15px;">
                         <button type="button" class="btn btn-secondary">Đổi vai trò</button>
                     </div>
+                    <div class="col-4 mt-1">
+                        <select class="form-select d-none" style="top: 20px; right: 15px;" id="editRole" name="role" required>
+                                <option value="" disabled selected>Select Role</option>
+                                <option value="2">Admin</option>
+                                <option value="1">Customer</option>
+                                <option value="3">Employee</option>
+                        </select>
+                    </div>
                     <input type="hidden" id="edit_user_id" name="user_id">
                     <div class="mb-3 avatar-container">
                         <label for="edit_image_user" class="form-label avatar-label">Avatar</label>
@@ -409,6 +417,9 @@
 
         const editButtons = document.querySelectorAll('.edit-account-button');
         const editModal = new bootstrap.Modal(document.getElementById('editAccountForm'));
+        const editRoleSelect = document.getElementById('editRole');
+        const editRoleButton = document.querySelector('#editAccountForm .btn-secondary');
+
         editButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const userData = JSON.parse(this.getAttribute('data-user'));
@@ -422,8 +433,15 @@
                 document.getElementById('editEmail').value = userData.email;
                 document.getElementById('editAddress').value = userData.address;
                 document.querySelector('#edit_image_user + .avatar-label img').src = userData.image_user;
+                document.getElementById('editRole').value = userData.role_id;
                 editModal.show();
             });
+        });
+
+        // Add click event to the "Đổi vai trò" button
+        editRoleButton.addEventListener('click', function() {
+            // Toggle visibility of the role select element
+            editRoleSelect.classList.toggle('d-none');
         });
         const showButtons = document.querySelectorAll('.show-account-button');
         const viewModal = new bootstrap.Modal(document.getElementById('viewAccountForm'));

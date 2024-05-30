@@ -47,7 +47,7 @@
                     $phone, $image, $username, $password);
                 $insert_result = sqlsrv_query($conn, $sql_new, $params);
                 if( $insert_result)
-                header("location: ../../account_customer.php");
+                header("location: ../../account_admin.php");
             } else if ($_GET['role'] == "3") {
                 $sql_new = "EXEC InsertNewUser_employee ?, ?, ?, ?, ?, ?, ?, ?, ?";
                 $params = array(

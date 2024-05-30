@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[GetUserInformation_admin]
+CREATE PROCEDURE [dbo].[GetUserInformation_employee]
 @startFrom INT
 AS
 BEGIN
@@ -28,7 +28,7 @@ BEGIN
         roles r ON ur.role_id = r.role_id
     INNER JOIN
         user_accounts ua ON ur.user_role_id = ua.user_role_id
-	where r.role_id=2
+	where r.role_id=3
     ORDER BY
         u.user_id
     OFFSET @startRow ROWS

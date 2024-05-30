@@ -64,6 +64,7 @@ $(document).ready(function() {
 });
 </script>
 
+<!-- Registration Modal -->
 <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

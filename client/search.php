@@ -20,7 +20,7 @@
 
     <?php
     $path = "";
-    include 'connect.php';  
+    include 'connect.php';
     include ("components/navbar/navbar.php");
     include ("login.php");
     include ("components/card/card.php");
@@ -45,10 +45,10 @@
         <?php
         $search = $_GET['search'];
         $sql_search_book = "SELECT * FROM dbo.FindBooks('$search');";
-        card_display($sql_search_book, "Các sách tìm được", $conn);
+        card_display($sql_search_book, "Các sách tìm được", $conn, 6);
 
         $sql_search_others_product = "SELECT * FROM dbo.FindOthersProduct('$search');";
-        card_display($sql_search_others_product, "Các sản phẩm khác", $conn);
+        card_display($sql_search_others_product, "Các sản phẩm khác", $conn, 6);
 
     } else {
         ?>
@@ -89,4 +89,3 @@
 </body>
 
 </html>
-

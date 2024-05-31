@@ -49,7 +49,7 @@ function card($imgSrc, $title, $price, $productId)
 }
 
 // Function to display cards based on SQL query results
-function card_display($sql, $title, $conn)
+function card_display($sql, $title, $conn, $numRecords = null)
 {
     $result = sqlsrv_query($conn, $sql);
     if ($result === false) {
@@ -67,20 +67,28 @@ function card_display($sql, $title, $conn)
         </div>
         <div class='row mt-2'>";
 
-    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-        if (isset($row['book_name'])) {
-            $product_name = $row['book_name'];
-        } else {
-            $product_name = $row['others_product_name'];
+    $count = 0;
+    if (!sqlsrv_has_rows($result)) {
+        echo "<p>Không có sản phẩm nào</p>";
+    } else {
+        while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+            if ($numRecords !== null && $count >= $numRecords) {
+                break;
+            }
+            if (isset($row['book_name'])) {
+                $product_name = $row['book_name'];
+            } else {
+                $product_name = $row['others_product_name'];
+            }
+            echo card($row['product_image'], $product_name, $row['product_price'], $row['product_id']);
+            $count++;
         }
-        echo card($row['product_image'], $product_name, $row['product_price'], $row['product_id']);
     }
 
     echo "
         </div>
     </div>";
 }
-
 ?>
 
 <script>

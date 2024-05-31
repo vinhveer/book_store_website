@@ -42,20 +42,11 @@ CREATE TABLE user_accounts (
 GO
 
 
-CREATE TABLE education_level(
-    education_level_id INT IDENTITY(1,1) PRIMARY KEY,
-    education_level_name NVARCHAR(50) NOT NULL
-);
-GO
-
-
 CREATE TABLE employees (
     employee_id BIGINT IDENTITY(1,1) PRIMARY KEY, -- ID duy nhất cho mỗi nhân viên
     user_id BIGINT NOT NULL, -- ID của người dùng (nhân viên)
-    education_level_id INT NOT NULL, -- Trình độ học vấn
     work_date DATE NOT NULL, -- Ngày làm việc
-    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (education_level_id) REFERENCES education_level (education_level_id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 GO
 
@@ -288,29 +279,6 @@ CREATE TABLE payments_on(
 );
 GO
 
--- Bảng Nhập kho
-CREATE TABLE stock_in (
-	stock_in_id BIGINT IDENTITY(1,1) PRIMARY KEY, -- ID của phiếu nhập kho, tự tăng
-	inflow_date DATE NOT NULL,
-    employee_id BIGINT NOT NULL, -- ID của nhân viên thực hiện
-    tolal_amount_in DECIMAL(20, 3), -- Tổng giá phiếu nhập
-    note_in NVARCHAR(MAX), -- Ghi chú
-    FOREIGN KEY (employee_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-GO
-
--- Bảng Chi tiết nhập hàng
-CREATE TABLE stock_in_details (
-	stock_in_id BIGINT NOT NULL, -- ID của phiếu nhập kho
-	product_id BIGINT NOT NULL, -- ID của sản phẩm
-	quantity_in INT NOT NULL, -- Số lượng nhập
-	unit_price_in DECIMAL(20, 3) NOT NULL, -- Giá mỗi đơn vị
-	PRIMARY KEY (stock_in_id, product_id), -- Khóa chính
-	FOREIGN KEY (stock_in_id) REFERENCES stock_in(stock_in_id) ON DELETE CASCADE ON UPDATE CASCADE, -- Khóa ngoại liên kết với bảng phiếu nhập kho
-	FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE ON UPDATE CASCADE -- Khóa ngoại liên kết với bảng sản phẩm
-);
-GO
-
 
 CREATE TABLE notiffication(
     notif_id BIGINT IDENTITY(1,1) PRIMARY KEY,
@@ -319,15 +287,6 @@ CREATE TABLE notiffication(
     notif_date DATETIME NOT NULL DEFAULT GETDATE()
 );
 Go
-
-
-CREATE TABLE list_item (
-    id INT IDENTITY(1, 1) PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-		type_item VARCHAR(1) NOT NULL,
-    cmd_top5 TEXT NOT NULL,
-    cmd_top30 TEXT NOT NULL
-);
 
 
 CREATE TABLE carts

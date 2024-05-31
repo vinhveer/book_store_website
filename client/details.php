@@ -136,7 +136,7 @@
             } else {
                 // Fetch other product details
                 $sql = "SELECT ot.others_product_name, pr.product_image, pr.product_price, pr.product_quantity, pr.product_status,
-                pc.category_name, su.supplier_name, su.supplier_origin, br.brand_name
+                pc.category_name, su.supplier_name, su.supplier_origin, br.brand_name, pr.product_id
                 FROM products pr
                 INNER JOIN others_products ot ON pr.product_id = ot.product_id
                 INNER JOIN brands br ON ot.others_product_brand_id = br.brand_id

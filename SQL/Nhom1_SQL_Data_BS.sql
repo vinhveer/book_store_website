@@ -131,7 +131,7 @@ VALUES
 (32, 1, '2020-01-01'), (33, 2, '2020-02-01'), (34, 3, '2020-03-01'), (35, 4, '2020-04-01'),
 (36, 5, '2020-05-01'), (37, 6, '2020-06-01'), (38, 7, '2020-07-01'), (39, 4, '2020-08-01'),
 (40, 5, '2020-09-01'), (41, 5, '2020-10-01'), (45, 4, '2020-11-01'), (43, 4, '2020-12-01'),
-(31, 3, '2021-01-01');
+(31, 3, '2021-01-01'), (42, 5, '2021-02-23'), (47, 5, '2021-12-12');
 
 
 INSERT INTO salary_coefficient (salary_coefficient_value, update_coefficient_date, role_id)
@@ -144,7 +144,7 @@ VALUES
 (4, 18000.000, 1, '2024-03-01'), (5, 10000.000, 2, '2024-03-01'), (6, 12000.000, 2, '2024-03-01'),
 (7, 15000.000, 2, '2024-03-01'), (8, 18000.000, 2, '2024-03-01'), (9, 10000.000, 3, '2024-03-01'),
 (10, 12000.000, 3, '2024-03-01'), (11, 15000.000, 3, '2024-03-01'), (12, 18000.000, 3, '2024-03-01'),
-(13, 10000.000, 3, '2024-03-01');
+(13, 10000.000, 3, '2024-03-01'),(14, 10000.000, 3, '2024-03-01'), (15, 10000.000, 3, '2024-03-01');
 
 INSERT INTO employee_attendance (employee_id, attendance_date)
 VALUES
@@ -212,7 +212,17 @@ VALUES
 (13, '2024-03-02'),
 (13, '2024-03-03'),
 (13, '2024-03-04'),
-(13, '2024-03-05');
+(13, '2024-03-05'),
+(14, '2024-03-01'),
+(14, '2024-03-02'),
+(14, '2024-03-03'),
+(14, '2024-03-04'),
+(14, '2024-03-05'),
+(15, '2024-03-01'),
+(15, '2024-03-02'),
+(15, '2024-03-03'),
+(15, '2024-03-04'),
+(15, '2024-03-05');
 -- Chèn dữ liệu vào bảng product_categories
 INSERT INTO product_categories (category_name) VALUES
     ('Books'),('Eraser'),('Pen'),('Calculator'),('Paper'),('Ruler'),('Scissors'),('Cutting knife'),('Cover'),('Hole punch'),('Stapler'),('Battery'),('Notebook'),('Clip'),('Tape');
@@ -2337,20 +2347,31 @@ VALUES (1),
        (5),
        (6),
        (7);
-INSERT INTO orders_online (customer_id, order_date_on, total_amount_on, status_on, note_on,employee_id,delivery_status)
-VALUES (1, '2024-04-01', 150.50, 'Confirmed', 'Special delivery instructions here',1,'Scheduled'),
-       (2, '2024-04-02', 99.99, 'Shipped', 'new',1,'In Transit'),
-       (3, '2024-04-03', 200.25, 'Pending', 'Awaiting payment confirmation',3,'Delivered'),
-       (4, '2024-04-04', 75.00, 'Completed', 'Delivered successfully',2,'Scheduled'),
-       (5, '2024-04-05', 500.75, 'Unpaid', 'Payment overdue',1,'Failed'),
-       (3, '2024-04-05', 50.75, 'Completed', 'Payment overdue',1,'Scheduled'),
-       (7, '2024-04-05', 50.75, 'Completed', 'Payment overdue',1,'Scheduled');
-INSERT INTO orders_offline (order_date_off, total_amount_off, note_off)
-VALUES ('2024-04-10', 300.75, 'Special packaging instructions'),
-       ('2024-04-11', 150.00, 'Good'),
-       ('2024-04-12', 75.50, 'Express delivery required'),
-       ('2024-04-13', 200.25, 'Gift wrapping requested'),
-       ('2024-04-14', 500.00, 'Delivery address changed');
+INSERT INTO orders_online (customer_id, order_date_on, total_amount_on, status_on, note_on)
+VALUES (1, '2024-04-01', 150500, 'Confirmed', 'Special delivery here'),
+       (2, '2024-04-02', 999900, 'Deleted', 'Returns'),
+       (3, '2024-04-03', 200250, 'Pending', 'Awaiting payment confirmation'),
+       (4, '2024-04-04', 750000, 'Completed', 'Delivered successfully'),
+       (5, '2024-04-05', 500750, 'Confirmed', 'Special delivery here'),
+       (3, '2024-04-05', 507500, 'Completed', 'Delivered successfully'),
+       (7, '2024-04-05', 507500, 'Completed', 'Delivered successfully'),
+       (4, GETDATE(), 20025, 'Pending', 'Awaiting payment confirmation');
+
+INSERT INTO shipper (order_id,employee_id,delivery_status)
+VALUES (1,1,'In Transit'),
+       (2,1,'Failed'),
+       (4,2,'Delivered'),
+       (5,1,'In Transit'),
+       (6,2,'Delivered'),
+       (7,3,'Delivered');
+
+INSERT INTO orders_offline (order_date_off, total_amount_off, employee_id, note_off)
+VALUES ('2024-04-10', 300750,4,'Special packaging instructions'),
+       ('2024-04-11', 150000,5,'Good'),
+       ('2024-04-12', 755000,6,'Express delivery required'),
+       ('2024-04-13', 200250,7,'Gift wrapping requested'),
+       ('2024-04-14', 500000,8,'Delivery address changed');
+
 INSERT INTO order_details_on (order_id, product_id, quantity, discount)
 VALUES (1, 201, 1, 0.00),
        (2, 202, 2, 0.00),
@@ -2372,22 +2393,6 @@ VALUES (1, 101, 2, 0.00),
        (5, 405, 2, 0.00),
        (5, 305, 2, 5.00),
        (4, 105, 2, 0.00);
-INSERT INTO support_info (title_support, content_support, created_at)
-VALUES
-    (N'Hỗ trợ về cài đặt', N'Hướng dẫn cài đặt phần mềm mới', GETDATE()),
-    (N'Hỗ trợ kỹ thuật', N'Giải đáp thắc mắc về lỗi phần mềm', GETDATE()),
-    (N'Hỗ trợ thanh toán', N'Hướng dẫn thanh toán hóa đơn', GETDATE()),
-    (N'Hỗ trợ khách hàng', N'Hỗ trợ cho các yêu cầu của khách hàng', GETDATE()),
-    (N'Hỗ trợ sản phẩm', N'Thông tin và hướng dẫn về sản phẩm', GETDATE()),
-    (N'Hỗ trợ kinh doanh', N'Hỗ trợ về các vấn đề liên quan đến kinh doanh', GETDATE());
-INSERT INTO support_users (support_id, user_id)
-VALUES
-    (1, 1),
-    (2, 1),
-    (3, 3),
-    (4, 2),
-    (5, 5),
-    (6, 2);
 INSERT INTO notiffication (notif_title, notif_content, notif_date)
 VALUES
     (N'Thông báo mới', N'Bạn có một thông báo mới', GETDATE()),
@@ -2396,8 +2401,3 @@ VALUES
     (N'Thông báo quan trọng', N'Thông báo quan trọng về việc sửa lỗi', GETDATE()),
     (N'Thông tin sản phẩm mới', N'Thông tin về sản phẩm mới đã được cập nhật', GETDATE()),
     (N'Thông báo hệ thống', N'Thông báo về việc bảo trì hệ thống', GETDATE());
-INSERT INTO feedback (title_feedback, content_feedback, date_time_feedback, support_id)
-VALUES
-(N'Phản hồi', N'Nội dung phản hồi 1', GETDATE(), 1),
-(N'Phản hồi', N'Nội dung phản hồi 2', GETDATE(), 2),
-(N'Phản hồi', N'Nội dung phản hồi 3', GETDATE(), 3);

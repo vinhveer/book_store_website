@@ -15,7 +15,7 @@
             </div>
             <div class="col-md-4">
                 <div class="d-flex justify-content-end">
-                    <a href="index.php" class="btn btn-primary">Thanh toán</a>
+                    <a href="payment.php" class="btn btn-primary">Thanh toán</a>
                 </div>
             </div>
         </div>

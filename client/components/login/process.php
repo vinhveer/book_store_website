@@ -1,81 +1,47 @@
 <?php
-session_start();
+include 'connect.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['login'])) {
-        loginUser($conn);
-    } elseif (isset($_POST['register'])) {
-        registerUser($conn);
-    }
-}
-
-function loginUser($conn) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $stmt = $conn->prepare("SELECT ua.account_id, ua.username, ua.password, ur.user_role_id, u.full_name
-                            FROM user_accounts ua
-                            JOIN user_roles ur ON ua.user_role_id = ur.user_role_id
-                            JOIN users u ON ur.user_id = u.user_id
-                            WHERE ua.username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $stmt->store_result();
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($account_id, $username, $hashed_password, $user_role_id, $full_name);
-        $stmt->fetch();
-        if (password_verify($password, $hashed_password)) {
-            $_SESSION["login_success"] = true;
-            $_SESSION["username"] = $full_name;
-            header("Location: index.php");
-        } else {
-            echo "Sai mật khẩu.";
-        }
-    } else {
-        echo "Tên đăng nhập không tồn tại.";
-    }
-    $stmt->close();
-}
-
-function registerUser($conn) {
-    $full_name = $_POST['full_name'];
-    $date_of_birth = $_POST['date_of_birth'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
+    $fullName = $_POST['full_name'];
+    $dateOfBirth = $_POST['date_of_birth'];
     $gender = $_POST['gender'];
-    $address = $_POST['address'];
     $phone = $_POST['phone'];
+    $address = $_POST['address'];
     $email = $_POST['email'];
     $username = $_POST['username'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hash the password
 
-    // Start a transaction
-    $conn->begin_transaction();
+    // Check for existing user
+    $sql = "SELECT display FROM dbo.CheckUserInfoFromInput(?, ?, ?, ?, ?, ?, ?, ?)";
+    $params = array($fullName, $dateOfBirth, $gender, $phone, $address, $email, $username, $password);
+    $stmt = sqlsrv_query($conn, $sql, $params);
 
-    try {
-        $stmt = $conn->prepare("INSERT INTO users (full_name, date_of_birth, gender, address, phone, email) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssisss", $full_name, $date_of_birth, $gender, $address, $phone, $email);
-        $stmt->execute();
-        $user_id = $stmt->insert_id;
-        $stmt->close();
-
-        $stmt = $conn->prepare("INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)");
-        $default_role_id = 1; // Giả sử vai trò mặc định cho người dùng mới là 1
-        $stmt->bind_param("ii", $user_id, $default_role_id);
-        $stmt->execute();
-        $user_role_id = $stmt->insert_id;
-        $stmt->close();
-
-        $stmt = $conn->prepare("INSERT INTO user_accounts (username, password, user_role_id) VALUES (?, ?, ?)");
-        $stmt->bind_param("ssi", $username, $password, $user_role_id);
-        $stmt->execute();
-        $stmt->close();
-
-        // Commit transaction
-        $conn->commit();
-        echo "Đăng ký thành công. Bạn có thể đăng nhập ngay bây giờ.";
-    } catch (Exception $e) {
-        $conn->rollback();
-        echo "Đăng ký thất bại: " . $e->getMessage();
+    if ($stmt === false) {
+        echo "Error in checking user info: " . print_r(sqlsrv_errors(), true);
+        exit;
     }
-}
 
-$conn->close();
+    $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+
+    if ($row['display'] === 'yes') {
+        echo "User already exists.";
+    } else {
+        // Insert new user into database
+        $sql = "INSERT INTO users (full_name, date_of_birth, gender, phone, address, email) VALUES (?, ?, ?, ?, ?, ?)";
+        $params = array($fullName, $dateOfBirth, $gender, $phone, $address, $email);
+        $stmt = sqlsrv_query($conn, $sql, $params);
+
+        if ($stmt === false) {
+            echo "Failed to register user: " . print_r(sqlsrv_errors(), true);
+            exit;
+        }
+
+        echo "Registration successful.";
+    }
+
+    if ($stmt) {
+        sqlsrv_free_stmt($stmt);
+    }
+    sqlsrv_close($conn);
+}
+?>

@@ -21,12 +21,71 @@
     <?php
     $path = "";
 
+    include 'connect.php';
     include ("components/navbar/navbar.php");
+    include ("login.php");
     include ("components/home/category.php");
     include ("components/card/card.php");
-    include ("components/card/card.php");
-    include ("components/card/card.php");
-    include ("components/card/card.php");
+
+    $sqlh7 = "SELECT TOP 2 b.book_name, p.product_image, p.product_price, p.product_id
+    FROM books b
+    JOIN products p ON b.product_id = p.product_id
+    JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+    WHERE bc.book_category_name = 'Comic Books'
+    UNION
+    SELECT TOP 2 b.book_name, p.product_image, p.product_price, p.product_id
+    FROM books b
+    JOIN products p ON b.product_id = p.product_id
+    JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+    WHERE bc.book_category_name = 'Games & Activities'
+    UNION
+    SELECT TOP 2 b.book_name, p.product_image, p.product_price, p.product_id
+    FROM books b
+    JOIN products p ON b.product_id = p.product_id
+    JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+    WHERE bc.book_category_name = 'Home & Garden'";
+    card_display($sqlh7, "Giải trí và Giáo dục", $conn);
+
+    $sqlh8 = "SELECT TOP 6 * FROM (
+        SELECT b.book_name, p.product_image, p.product_price, p.product_id
+            FROM books b
+            JOIN products p ON b.product_id = p.product_id
+            JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+            WHERE bc.book_category_name = 'Philosophy'
+            UNION
+            SELECT b.book_name, p.product_image, p.product_price, p.product_id
+            FROM books b
+            JOIN products p ON b.product_id = p.product_id
+            JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+            WHERE bc.book_category_name = 'History'
+            UNION
+            SELECT b.book_name, p.product_image, p.product_price, p.product_id
+            FROM books b
+            JOIN products p ON b.product_id = p.product_id
+            JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+            WHERE bc.book_category_name = 'Social Sciences'
+        ) AS book
+        ";
+    card_display($sqlh8, "Khoa học và Xã hội", $conn);
+
+    $sqlh9 = "SELECT TOP 2 b.book_name, p.product_image, p.product_price, p.product_id
+    FROM books b
+    JOIN products p ON b.product_id = p.product_id
+    JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+    WHERE bc.book_category_name = 'Art'
+    UNION
+    SELECT TOP 2 b.book_name, p.product_image, p.product_price, p.product_id
+    FROM books b
+    JOIN products p ON b.product_id = p.product_id
+    JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+    WHERE bc.book_category_name = 'Cooking'
+    UNION
+    SELECT TOP 2 b.book_name, p.product_image, p.product_price, p.product_id
+    FROM books b
+    JOIN products p ON b.product_id = p.product_id
+    JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+    WHERE bc.book_category_name = 'Computer Science'";
+    card_display($sqlh9, "Văn học và Nghệ thuật", $conn);
     ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

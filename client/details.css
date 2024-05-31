@@ -1,0 +1,120 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.logo {
+    width: 80px;
+}
+
+.nav-link i {
+    font-size: 20px;
+}
+
+.search {
+    width: 35%;
+    height: 35px;
+}
+
+.avatar_navbar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.avatar_dropdown {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.dropdown-menu {
+    width: 350px;
+}
+
+.active {
+    font-weight: bold;
+}
+
+body {
+    margin-top: 80px;
+}
+
+.dropdown-item i {
+    padding-right: 8px;
+}
+
+
+.card-title {
+    font-size: 15px;
+    padding-bottom: 0   ;
+    margin-bottom: 0;
+}
+
+.card-footer {
+    padding: auto;
+    padding-top: 0px;
+    padding-bottom: 8px;
+    background: none;
+    border: none;
+}
+
+.card-img-top-book {
+    width: 150px;
+    height: 220px;
+}
+
+.year {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+.author {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+.brand {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+.heading {
+    position: relative;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.heading::before {
+    content: "";
+    /* Thêm nội dung vào pseudo-element */
+    position: absolute;
+    /* Đặt vị trí của pseudo-element là absolute để nó có thể che phủ hoàn toàn phần tử cha */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../../../assets/images/home/pexels-pixabay-159711.jpg);
+    background-size: cover;
+    opacity: 0.25;
+    /* Điều chỉnh độ mờ của background */
+    z-index: -1;
+    /* Đẩy pseudo-element xuống phía sau để nó không che phủ chữ */
+}
+
+.book_image {
+    width: 160px;
+}
+
+i {
+    padding-right: 5px;
+}
+
+.nav-link {
+    color: #6c757d;
+}

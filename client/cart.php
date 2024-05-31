@@ -8,10 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
-            padding-top: 80px;
+            padding-top: 56px;
         }
     </style>
 </head>
@@ -21,7 +22,9 @@
     <?php
     $path = "";
 
+    include 'connect.php';
     include ("components/navbar/navbar.php");
+    include ("login.php");
     include ("components/cart/header.php");
     include ("components/cart/card_cart.php");
     include ("components/footer/footer.php");

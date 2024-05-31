@@ -28,7 +28,7 @@
 
             <main class="content px-3 py-4">
             <?php
-                include 'components/Product/product.php';
+                include 'components/Product/other_product_edit.php';
             ?>
             </main>
         </div>

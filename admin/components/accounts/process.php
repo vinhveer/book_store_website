@@ -47,7 +47,7 @@
                     $phone, $image, $username, $password);
                 $insert_result = sqlsrv_query($conn, $sql_new, $params);
                 if( $insert_result)
-                header("location: ../../account_customer.php");
+                header("location: ../../account_admin.php");
             } else if ($_GET['role'] == "3") {
                 $sql_new = "EXEC InsertNewUser_employee ?, ?, ?, ?, ?, ?, ?, ?, ?";
                 $params = array(
@@ -112,6 +112,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["sbm_edit"])) {
     if ($query_update_user === false) {
         die( print_r( sqlsrv_errors(), true));
     } else {
+        $role_id = $_POST['role'];
+        $sql_role_id = "UPDATE user_roles SET role_id = '$role_id' Where user_id=$user_id";
+        $result_role = sqlsrv_query($conn, $sql_role_id);
+        if ($result_role === false) {
+            die( print_r( sqlsrv_errors(), true));
+        }
         $page = $_GET['page'];
         $edit = $_GET['edit'];
         $username = $_POST['username'];

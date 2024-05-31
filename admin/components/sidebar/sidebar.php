@@ -34,7 +34,7 @@
             </ul>
         </li>
         <li class="sidebar-item">
-            <a href="product.php?page_layout=product" class="sidebar-link">
+            <a href="book.php?page_layout=product" class="sidebar-link">
                 <i class="bi bi-box"></i>
                 <span>Product</span>
             </a>

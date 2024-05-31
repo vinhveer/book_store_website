@@ -22,42 +22,54 @@
     include ("components/home/header.php");
     include ("components/home/category.php");
     include ("components/card/card.php");
-
-    $sql = "SELECT TOP 6 b.book_name, p.product_image, p.product_price, p.product_id
-    FROM books b
-    JOIN products p ON b.product_id = p.product_id;";
-    card_display($sql, "Các loại sách phổ biến", $conn);
-    
-    $sqlh2 = "SELECT TOP 2 b.book_name, p.product_image, p.product_price, p.product_id
-    FROM books b
-    JOIN products p ON b.product_id = p.product_id
-    JOIN book_categories bc ON b.book_category_id = bc.book_category_id
-    WHERE bc.book_category_name = 'Self-Help'
-    UNION
-    SELECT TOP 2 b.book_name, p.product_image, p.product_price, p.product_id
-    FROM books b
-    JOIN products p ON b.product_id = p.product_id
-    JOIN book_categories bc ON b.book_category_id = bc.book_category_id
-    WHERE bc.book_category_name = 'Health & Wellness'
-    UNION
-    SELECT TOP 2 b.book_name, p.product_image, p.product_price, p.product_id
-    FROM books b
-    JOIN products p ON b.product_id = p.product_id
-    JOIN book_categories bc ON b.book_category_id = bc.book_category_id
-    WHERE bc.book_category_name = 'Mind & Body'";
-    card_display($sqlh2, "Phát triển bản thân", $conn);
-    
-    $sqlh3 = "SELECT TOP 6 * FROM(
-        SELECT od.others_product_name, p.product_image, p.product_price, p.product_id
-        FROM others_products  od
-            JOIN products p ON od.product_id = p.product_id 
-        GROUP BY od.others_product_name, p.product_image, p.product_price, p.product_id
-        HAVING p.product_price = '20000'
-        ) AS cheap";
-    card_display($sqlh3, "Sản phẩm giá mềm", $conn);
-
-    include ("components/footer/footer.php");
     ?>
+
+    <div id="popular-books">
+        <?php
+        $sql = "SELECT TOP 6 b.book_name, p.product_image, p.product_price, p.product_id
+        FROM books b
+        JOIN products p ON b.product_id = p.product_id;";
+        card_display($sql, "Các loại sách phổ biến", $conn);
+        ?>
+    </div>
+
+    <div id="self-development">
+        <?php
+        $sqlh2 = "SELECT TOP 2 b.book_name, p.product_image, p.product_price, p.product_id
+        FROM books b
+        JOIN products p ON b.product_id = p.product_id
+        JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+        WHERE bc.book_category_name = 'Self-Help'
+        UNION
+        SELECT TOP 2 b.book_name, p.product_image, p.product_price, p.product_id
+        FROM books b
+        JOIN products p ON b.product_id = p.product_id
+        JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+        WHERE bc.book_category_name = 'Health & Wellness'
+        UNION
+        SELECT TOP 2 b.book_name, p.product_image, p.product_price, p.product_id
+        FROM books b
+        JOIN products p ON b.product_id = p.product_id
+        JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+        WHERE bc.book_category_name = 'Mind & Body'";
+        card_display($sqlh2, "Phát triển bản thân", $conn);
+        ?>
+    </div>
+
+    <div id="cheap-products">
+        <?php
+        $sqlh3 = "SELECT TOP 6 * FROM(
+            SELECT od.others_product_name, p.product_image, p.product_price, p.product_id
+            FROM others_products  od
+                JOIN products p ON od.product_id = p.product_id 
+            GROUP BY od.others_product_name, p.product_image, p.product_price, p.product_id
+            HAVING p.product_price = '20000'
+            ) AS cheap";
+        card_display($sqlh3, "Sản phẩm giá mềm", $conn);
+        ?>
+    </div>
+
+    <?php include ("components/footer/footer.php"); ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

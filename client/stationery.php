@@ -18,45 +18,56 @@
 
 <body data-bs-theme="light">
 
-    <?php
+<?php
     $path = "";
-
     include 'connect.php';
     include ("components/navbar/navbar.php");
     include ("login.php");
-    include ("components/home/category.php");
+    include ("components/home/category_stationery.php");
     include ("components/card/card.php");
+    ?>
 
-    $sqlh4 ="SELECT TOP 6 * FROM(
-        SELECT od.others_product_name, p.product_image, p.product_price, p.product_id
-            FROM others_products  od
+    <div id="school-supplies">
+        <?php
+        $sqlh4 = "SELECT TOP 6 * FROM (
+            SELECT od.others_product_name, p.product_image, p.product_price, p.product_id
+            FROM others_products od
             JOIN products p ON od.product_id = p.product_id 
             WHERE od.others_product_name LIKE 'bút%'
             EXCEPT
             SELECT od.others_product_name, p.product_image, p.product_price, p.product_id
-            FROM others_products  od
+            FROM others_products od
             JOIN products p ON od.product_id = p.product_id 
             WHERE od.others_product_name LIKE 'bút gel%'
         ) AS othersproducts";
-    card_display($sqlh4, "Đồ dùng học tập", $conn);
+        card_display($sqlh4, "Đồ dùng học tập", $conn);
+        ?>
+    </div>
 
-    $sqlh5 = "SELECT TOP 6 od.others_product_name, p.product_image, p.product_price, p.product_id
-    FROM others_products  od
-    JOIN products p ON od.product_id = p.product_id 
-    WHERE od.others_product_name LIKE '%Thiên Long%'";
-    card_display($sqlh5, "Sản phẩm Thiên Long", $conn);
+    <div id="thien-long-products">
+        <?php
+        $sqlh5 = "SELECT TOP 6 od.others_product_name, p.product_image, p.product_price, p.product_id
+        FROM others_products od
+        JOIN products p ON od.product_id = p.product_id 
+        WHERE od.others_product_name LIKE '%Thiên Long%'";
+        card_display($sqlh5, "Sản phẩm Thiên Long", $conn);
+        ?>
+    </div>
 
-    $sqlh6 ="SELECT TOP 3 od.others_product_name, p.product_image, p.product_price, p.product_id
-    FROM others_products  od
-    JOIN products p ON od.product_id = p.product_id 
-    WHERE od.others_product_name LIKE 'máy tính%'
-    UNION
-    SELECT TOP 3 od.others_product_name, p.product_image, p.product_price, p.product_id
-    FROM others_products  od
-    JOIN products p ON od.product_id = p.product_id 
-    WHERE od.others_product_name LIKE '%gel%'";
-    card_display($sqlh6, "Đồ dùng văn phòng", $conn);
-    ?>
+    <div id="office-supplies">
+        <?php
+        $sqlh6 = "SELECT TOP 3 od.others_product_name, p.product_image, p.product_price, p.product_id
+        FROM others_products od
+        JOIN products p ON od.product_id = p.product_id 
+        WHERE od.others_product_name LIKE 'máy tính%'
+        UNION
+        SELECT TOP 3 od.others_product_name, p.product_image, p.product_price, p.product_id
+        FROM others_products od
+        JOIN products p ON od.product_id = p.product_id 
+        WHERE od.others_product_name LIKE '%gel%'";
+        card_display($sqlh6, "Đồ dùng văn phòng", $conn);
+        ?>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

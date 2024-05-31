@@ -35,10 +35,9 @@ sqlsrv_close($conn);
                                         <input type="checkbox" name="selected_products[]" value="<?php echo $item['product_id']; ?>" id="checkbox-<?php echo $item['product_id']; ?>">
                                     </div>
                                     <div class="col-md-9">
-                                        <h5 class="card-title">Product ID: <?php echo $item['product_id']; ?></h5>
-                                        <p class="card-text">Quantity: <?php echo $item['quantity']; ?></p>
-                                        <p class="card-text">Price: $<?php echo number_format($item['product_price'], 2); ?></p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        <h5 class="card-title"><?php echo $item['product_id']; ?></h5>
+                                        <p class="card-text"><?php echo $item['quantity']; ?></p>
+                                        <p class="card-text"><?php echo number_format($item['product_price'], 2); ?></p>
                                     </div>
                                     <div class="col-md-2">
                                         <button class="btn btn-success"><i class='bx bx-edit'></i></button>

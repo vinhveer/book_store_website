@@ -19,6 +19,7 @@
 .card {
     position: relative;
     overflow: hidden;
+    height: 400px;
 }
 
 .image-container {
@@ -39,10 +40,14 @@
     transition: opacity 0.3s ease;
 }
 
-.overlay i {
+.overlay i p {
     color: #fff;
     font-size: 2rem;
     margin: 0 10px;
+}
+
+i {
+    font-size: 30px;
 }
 
 .card:hover .overlay {

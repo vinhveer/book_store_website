@@ -35,35 +35,6 @@
     </div>
 </div>
 
-<script>
-$(document).ready(function() {
-    $('#loginForm').on('submit', function(e) {
-        e.preventDefault();
-
-        $.ajax({
-            type: 'POST',
-            url: 'login_process.php',
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(response) {
-                if (response.status === 'success') {
-                    $('#loginMessage').html('<div class="alert alert-success">' + response.message + '</div>');
-                    setTimeout(function() {
-                        window.location.href = response.redirect_url;
-                    }, 0);
-                } else {
-                    $('#loginMessage').html('<div class="alert alert-danger">' + response.message + '</div>');
-                }
-            },
-            error: function(xhr, status, error) {
-                $('#loginMessage').html('<div class="alert alert-danger">Đã xảy ra lỗi. Vui lòng thử lại sau.</div>');
-                console.log(xhr.responseText);
-            }
-        });
-    });
-});
-</script>
-
 <!-- Registration Modal -->
 <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -73,7 +44,7 @@ $(document).ready(function() {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="components/login/process.php" method="post">
+                <form id="registerForm" method="post">
                     <p>Hoàn thành một số thông tin cơ bản sau</p>
                     <div class="mb-3">
                         <label for="full_name" class="form-label">Họ và tên</label>
@@ -117,10 +88,65 @@ $(document).ready(function() {
                         Đã có tài khoản? <a href="#loginModal" class="text-decoration-none switch-modal" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng nhập ngay.</a>
                     </div>
                 </form>
+                <div id="registerMessage" class="mt-3"></div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+$(document).ready(function() {
+    $('#loginForm').on('submit', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: 'login_process.php',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    $('#loginMessage').html('<div class="alert alert-success">' + response.message + '</div>');
+                    setTimeout(function() {
+                        window.location.href = response.redirect_url;
+                    }, 0);
+                } else {
+                    $('#loginMessage').html('<div class="alert alert-danger">' + response.message + '</div>');
+                }
+            },
+            error: function(xhr, status, error) {
+                $('#loginMessage').html('<div class="alert alert-danger">Đã xảy ra lỗi. Vui lòng thử lại sau.</div>');
+                console.log(xhr.responseText);
+            }
+        });
+    });
+
+    $('#registerForm').on('submit', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: 'register_process.php',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    $('#registerMessage').html('<div class="alert alert-success">' + response.message + '</div>');
+                    setTimeout(function() {
+                        window.location.href = response.redirect_url || '/';
+                    }, 0);
+                } else {
+                    $('#registerMessage').html('<div class="alert alert-danger">' + response.message + '</div>');
+                }
+            },
+            error: function(xhr, status, error) {
+                $('#registerMessage').html('<div class="alert alert-danger">Đã xảy ra lỗi. Vui lòng thử lại sau.</div>');
+                console.log(xhr.responseText);
+            }
+        });
+    });
+});
+</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', (event) => {

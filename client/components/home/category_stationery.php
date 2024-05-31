@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="components/home/category.css">
     <style>
         .sticky-element {
-            top: 44px;
+            top: 35px;
             z-index: 999;
         }
         html {
@@ -19,13 +19,13 @@
 <body>
     <ul id="category-nav" class="nav nav-underline container-fluid ps-4 pe-4 sticky-top sticky-element bg-body-tertiary">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#popular-books">Các loại sách phổ biến</a>
+            <a class="nav-link active" aria-current="page" href="#school-supplies">Đồ dùng học tập</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#self-development">Phát triển bản thân</a>
+            <a class="nav-link" href="#thien-long-products">Sản phẩm Thiên Long</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#cheap-products">Sản phẩm giá mềm</a>
+            <a class="nav-link" href="#office-supplies">Đồ dùng văn phòng</a>
         </li>
     </ul>
 

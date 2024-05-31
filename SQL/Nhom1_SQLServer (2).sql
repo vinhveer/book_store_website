@@ -324,11 +324,12 @@ CREATE TABLE list_item (
 
 CREATE TABLE carts
 (
-	user_id BIGINT PRIMARY KEY,
+	user_id BIGINT NOT NULL,
 	product_id BIGINT NOT NULL,
 	quantity INT NOT NULL,
 	created_at DATETIME NOT NULL,
 	status BIT,
+    PRIMARY KEY (user_id,product_id),
 	FOREIGN KEY (product_id) REFERENCES products (product_id),
 	FOREIGN KEY (user_id) REFERENCES users(user_id)
 );

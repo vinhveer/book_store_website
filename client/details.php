@@ -57,7 +57,7 @@
 
             if ($isBook) {
                 // Fetch book details
-                $sql = "SELECT * 
+                $sql = "SELECT *
                 FROM books bo
                 INNER JOIN products pr ON bo.product_id = pr.product_id
                 INNER JOIN book_author ba ON bo.product_id = ba.product_id
@@ -88,7 +88,7 @@
                         </div>
                         <div class="col-md-3">
                             <p style="font-size: 30px; font-weight: bold"><?php echo $row['product_price'] ?>đ</p>
-                            <button class="btn btn-success"><i class="bi bi-cart-plus fw-2"></i>Add to cart</button>
+                            <button class="btn btn-success add-to-cart" data-product-id="<?php echo $row['product_id']; ?>"><i class="bi bi-cart-plus fw-2"></i>Add to cart</button>
                             <button class="btn btn-warning"><i class="bi bi-credit-card fw-2"></i>Buy now </button>
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                 <?php
             } else {
                 // Fetch other product details
-                $sql = "SELECT ot.others_product_name, pr.product_image, pr.product_price, pr.product_quantity, pr.product_status, 
+                $sql = "SELECT ot.others_product_name, pr.product_image, pr.product_price, pr.product_quantity, pr.product_status,
                 pc.category_name, su.supplier_name, su.supplier_origin, br.brand_name
                 FROM products pr
                 INNER JOIN others_products ot ON pr.product_id = ot.product_id
@@ -163,7 +163,7 @@
                         </div>
                         <div class="col-md-3">
                             <p style="font-size: 30px; font-weight: bold"><?php echo $row['product_price'] ?>đ</p>
-                            <button class="btn btn-success"><i class="bi bi-cart-plus fw-2"></i>Add to cart</button>
+                            <button class="btn btn-success add-to-cart" data-product-id="<?php echo $row['product_id']; ?>"><i class="bi bi-cart-plus fw-2"></i>Add to cart</button>
                             <button class="btn btn-warning"><i class="bi bi-credit-card fw-2"></i>Buy now </button>
                         </div>
                     </div>
@@ -218,6 +218,25 @@
     }
     ?>
 
+    <!-- Modal Template -->
+    <div class="modal fade" id="quantityModal" tabindex="-1" aria-labelledby="quantityModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quantityModalLabel">Chọn số lượng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="number" id="quantity" class="form-control" value="1" min="1">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary confirm-add-to-cart">Thêm vào giỏ hàng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <?php
     include ("components/footer/footer.php");
     ?>
@@ -241,6 +260,48 @@
             } else {
                 navbar.classList.add('bg-body-tertiary');
             }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function () {
+                    const productId = this.getAttribute('data-product-id');
+                    const modal = new bootstrap.Modal(document.getElementById('quantityModal'));
+                    const confirmButton = document.querySelector('.confirm-add-to-cart');
+                    confirmButton.setAttribute('data-product-id', productId);
+                    modal.show();
+                });
+            });
+
+            document.querySelector('.confirm-add-to-cart').addEventListener('click', function () {
+                const productId = this.getAttribute('data-product-id');
+                const quantity = document.querySelector('#quantity').value;
+
+                console.log(`Product ID: ${productId}, Quantity: ${quantity}`); // Debug log
+
+                fetch('add_to_cart.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        quantity: quantity,
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Thêm vào giỏ hàng thành công!');
+                        } else {
+                            console.log('Có lỗi xảy ra: ' + data.error);
+                        }
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('quantityModal'));
+                        modal.hide();
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
         });
     </script>
 </body>

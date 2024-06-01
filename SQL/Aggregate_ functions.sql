@@ -27,3 +27,23 @@ SELECT
     (SELECT COUNT(*) FROM shipper WHERE delivery_status = 'Delivered') AS delivered_orders,
     (SELECT COUNT(*) FROM shipper WHERE delivery_status = 'Scheduled') AS scheduled_orders,
     (SELECT COUNT(*) FROM orders_offline) AS offline_orders
+
+SELECT book_category_id, AVG(book_publication_year) AS avg_publication_year
+FROM books
+GROUP BY book_category_id
+HAVING AVG(book_publication_year) > 2000;
+
+SELECT book_publisher_id, COUNT(product_id) AS total_books
+FROM books
+GROUP BY book_publisher_id
+HAVING COUNT(product_id) < 100;
+
+SELECT others_product_brand_id, SUM(others_product_weight) AS total_weight
+FROM others_products
+GROUP BY others_product_brand_id
+HAVING SUM(others_product_weight) > 500;
+
+SELECT book_language_id, COUNT(product_id) AS total_books
+FROM books
+GROUP BY book_language_id
+HAVING COUNT(product_id) > 50;

@@ -2211,20 +2211,31 @@ VALUES (1),
        (5),
        (6),
        (7);
-INSERT INTO orders_online (customer_id, order_date_on, total_amount_on, status_on, note_on,employee_id,delivery_status)
-VALUES (1, '2024-04-01', 150.50, 'Confirmed', 'Special delivery instructions here',1,'Scheduled'),
-       (2, '2024-04-02', 99.99, 'Shipped', 'new',1,'In Transit'),
-       (3, '2024-04-03', 200.25, 'Pending', 'Awaiting payment confirmation',3,'Delivered'),
-       (4, '2024-04-04', 75.00, 'Completed', 'Delivered successfully',2,'Scheduled'),
-       (5, '2024-04-05', 500.75, 'Unpaid', 'Payment overdue',1,'Failed'),
-       (3, '2024-04-05', 50.75, 'Completed', 'Payment overdue',1,'Scheduled'),
-       (7, '2024-04-05', 50.75, 'Completed', 'Payment overdue',1,'Scheduled');
-INSERT INTO orders_offline (order_date_off, total_amount_off, note_off)
-VALUES ('2024-04-10', 300.75, 'Special packaging instructions'),
-       ('2024-04-11', 150.00, 'Good'),
-       ('2024-04-12', 75.50, 'Express delivery required'),
-       ('2024-04-13', 200.25, 'Gift wrapping requested'),
-       ('2024-04-14', 500.00, 'Delivery address changed');
+INSERT INTO orders_online (customer_id, order_date_on, total_amount_on, status_on, note_on)
+VALUES (1, '2024-04-01', 150500, 'Confirmed', 'Special delivery here'),
+       (2, '2024-04-02', 999900, 'Deleted', 'Returns'),
+       (3, '2024-04-03', 200250, 'Pending', 'Awaiting payment confirmation'),
+       (4, '2024-04-04', 750000, 'Completed', 'Delivered successfully'),
+       (5, '2024-04-05', 500750, 'Confirmed', 'Special delivery here'),
+       (3, '2024-04-05', 507500, 'Completed', 'Delivered successfully'),
+       (7, '2024-04-05', 507500, 'Completed', 'Delivered successfully'),
+       (4, GETDATE(), 20025, 'Pending', 'Awaiting payment confirmation');
+
+INSERT INTO shipper (order_id,employee_id,delivery_status)
+VALUES (1,1,'In Transit'),
+       (2,1,'Failed'),
+       (4,2,'Delivered'),
+       (5,1,'In Transit'),
+       (6,2,'Delivered'),
+       (7,3,'Delivered');
+
+INSERT INTO orders_offline (order_date_off, total_amount_off, employee_id, note_off)
+VALUES ('2024-04-10', 300750,4,'Special packaging instructions'),
+       ('2024-04-11', 150000,5,'Good'),
+       ('2024-04-12', 755000,6,'Express delivery required'),
+       ('2024-04-13', 200250,7,'Gift wrapping requested'),
+       ('2024-04-14', 500000,8,'Delivery address changed');
+
 INSERT INTO order_details_on (order_id, product_id, quantity, discount)
 VALUES (1, 201, 1, 0.00),
        (2, 202, 2, 0.00),

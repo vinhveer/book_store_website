@@ -21,8 +21,16 @@
     <?php
     $path = "";
 
-    // include 'connect.php';
-    // include ("components/navbar/navbar.php");
+    include 'connect.php';
+    include ("components/navbar/navbar.php");
+    ?>
+
+    <?php
+    if (isset($_POST['payment_ok']))
+    {
+        $selected_products = $_SESSION['selected_products'];
+    }
+
     ?>
 
     <div class="container-fluid ps-4 pe-4 mt-4">

@@ -1,13 +1,13 @@
 <?php
-$servername = "DESKTOP-ARM6I0A\SQLEXPRESS";
+$servername = "VinhVeer\VINHVEER";
 $database = "BookStore";
-$uid = "sa";
-$pass = "12345";
+// $uid = "sa";
+// $pass = "12345";
 
 $connection = [
     "Database" => $database,
-    "Uid" => $uid,
-    "PWD" => $pass,
+    // "Uid" => $uid,
+    // "PWD" => $pass,
     "CharacterSet" => "UTF-8",
 ];
 

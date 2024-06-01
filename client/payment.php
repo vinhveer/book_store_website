@@ -21,8 +21,8 @@
     <?php
     $path = "";
 
-    // include 'connect.php';
-    // include ("components/navbar/navbar.php");
+    include 'connect.php';
+    include ("components/navbar/navbar.php");
     ?>
 
     <div class="container-fluid mt-4 ps-4 pe-4">

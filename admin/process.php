@@ -1,5 +1,5 @@
 <?php
-include("connect.php");
+include("config/connect.php");
 
 if (isset($_POST['update_auth']))
 {
@@ -28,7 +28,7 @@ if (isset($_POST['update_auth']))
         $stmt = sqlsrv_prepare($conn, $sql, array(&$new_username, &$new_password, &$user_id));
         if ($stmt && sqlsrv_execute($stmt))
         {
-            header("Location: authenciation.php");
+            header("Location: index.php");
             exit();
         }
         else
@@ -73,7 +73,7 @@ if (isset($_POST['update_profile'])) {
     // Thực thi câu lệnh SQL
     if (sqlsrv_query($conn, $sql)) {
         // Chuyển hướng người dùng đến trang "authenciation.php" và kèm theo tham số `success=1` để hiển thị modal
-        header("Location: authenciation.php?success=1");
+        header("Location: index.php?success=1");
         exit();
     } else {
         echo "Update failed";

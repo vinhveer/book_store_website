@@ -46,21 +46,6 @@
             </a>
         </li>
         <li class="sidebar-item">
-            <a href="" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#setting"
-                aria-expanded="false" aria-controls="setting">
-                <i class="bi bi-gear"></i>
-                <span>Setting</span>
-            </a>
-            <ul id="setting" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                <li class="sidebar-item">
-                    <a href="nofitication.php?page_layout=nofi" class="sidebar-link">
-                        <i class="bi bi-bell mx-2"></i>
-                        <span>Thông báo</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="sidebar-item">
             <a href="#" class="sidebar-link">
                 <i class="bi bi-box-arrow-left"></i>
                 <span>Logout</span>

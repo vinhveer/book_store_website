@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="components/home/category.css">
     <style>
         .sticky-element {
-            top: 35px;
+            top: 42px;
             z-index: 999;
         }
         html {

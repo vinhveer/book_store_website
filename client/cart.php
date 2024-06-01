@@ -45,7 +45,6 @@
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $cart_items[] = $row;
     }
-    sqlsrv_close($conn);
     ?>
     <form action="placeorder.php" method="post">
         <div class="container-fluid ps-4 pe-4">
@@ -70,7 +69,13 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="row">
-                        <?php foreach ($cart_items as $item) : ?>
+                        <?php foreach ($cart_items as $item) { 
+                            $product_id = $item['product_id'];
+                            $sql_item = "SELECT * FROM GetProductDetails($product_id)";
+
+                            $result = sqlsrv_query($conn, $sql_item);
+                            $row_item = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC);
+                            ?>
                             <div class="card mb-4" data-id="<?php echo $item['product_id']; ?>" onclick="toggleCheckbox(<?php echo $item['product_id']; ?>)">
                                 <div class="row no-gutters">
                                     <div class="col-md-2">
@@ -82,9 +87,9 @@
                                                 <input type="checkbox" name="selected_products[]" value="<?php echo $item['product_id']; ?>" id="checkbox-<?php echo $item['product_id']; ?>">
                                             </div>
                                             <div class="col-md-9">
-                                                <h5 class="card-title">Product ID: <?php echo $item['product_id']; ?></h5>
-                                                <p class="card-text">Quantity: <?php echo $item['quantity']; ?></p>
-                                                <p class="card-text">Price: $<?php echo number_format($item['product_price'], 2); ?></p>
+                                                <h5 class="card-title"><?php echo $row_item["Product Name"]; ?></h5>
+                                                <p class="card-text"><?php echo $item['quantity']; ?></p>
+                                                <p class="card-text"><?php echo number_format($item['product_price'], 2); ?></p>
                                                 <a href="#" class="btn btn-primary">Go somewhere</a>
                                             </div>
                                             <div class="col-md-2">
@@ -95,7 +100,7 @@
                                     </div>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="col-md-4">

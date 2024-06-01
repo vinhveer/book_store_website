@@ -41,6 +41,22 @@ CREATE TABLE user_accounts (
 );
 GO
 
+CREATE TABLE education_level(
+    education_level_id INT IDENTITY(1,1) PRIMARY KEY,
+    education_level_name NVARCHAR(50) NOT NULL
+);
+GO
+
+CREATE TABLE employees (
+    employee_id BIGINT IDENTITY(1,1) PRIMARY KEY, -- ID duy nhất cho mỗi nhân viên
+    user_id BIGINT NOT NULL, -- ID của người dùng (nhân viên)
+    education_level_id INT NOT NULL, -- Trình độ học vấn
+    work_date DATE NOT NULL, -- Ngày làm việc
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (education_level_id) REFERENCES education_level (education_level_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+GO
+
 
 CREATE TABLE product_categories (
     category_id BIGINT IDENTITY(1,1) PRIMARY KEY, -- ID duy nhất cho mỗi danh mục sản phẩm

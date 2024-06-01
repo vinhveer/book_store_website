@@ -65,9 +65,6 @@
     $result_order_online = sqlsrv_query($conn,$sql_order_online);
 
 
-    $sql_notification = "SELECT TOP 3 notif_title, notif_content,notif_date
-    FROM notiffication ORDER BY notif_date DESC ";
-    $result_notification = sqlsrv_query($conn,$sql_notification);
 ?>
 
         <div class="header">
@@ -162,28 +159,6 @@
 
                         </tbody>
                     </table>
-                </div>
-
-                <!-- Reminders -->
-                <div class="reminders">
-                    <div class="header">
-                        <a href="nofitication.php"><i class='bx bx-note'></i></a>
-                        <h3>Notifications</h3>
-                        <i class='bx bx-filter'></i>
-                        <a href="nofitication.php"><i class='bx bx-plus'></i></a>
-                    </div>
-                        <ul class="task-list">
-                        <?php
-                        while ($row_notification = sqlsrv_fetch_array($result_notification)) {?>
-                            <li class="completed">
-                                <div class="task-title">
-                                    <i class='bx bx-check-circle'></i>
-                                    <p><?php echo $row_notification['notif_title'] ;?></p>
-                                </div>
-                                <a href="nofitication.php"><i class='bx bx-dots-vertical-rounded'></i></a>
-                            </li>
-                            <?php }?>
-                        </ul>
                 </div>
             </div>
         </div>

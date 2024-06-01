@@ -45,7 +45,11 @@
     // Check if selected_products is set and is an array
     if (isset($_POST['selected_products']) && is_array($_POST['selected_products'])) {
         $selected_products = $_POST['selected_products'];
+
+        $_SESSION['selected_products'] = $selected_products;
+
         $user_id = $_POST['user_id'];
+
 
         // Start table
         echo "<div class='container-fluid mt-4 ps-4 pe-4'>

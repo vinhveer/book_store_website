@@ -41,50 +41,6 @@ CREATE TABLE user_accounts (
 );
 GO
 
-CREATE TABLE education_level(
-    education_level_id INT IDENTITY(1,1) PRIMARY KEY,
-    education_level_name NVARCHAR(50) NOT NULL
-);
-GO
-
-CREATE TABLE employees (
-    employee_id BIGINT IDENTITY(1,1) PRIMARY KEY, -- ID duy nhất cho mỗi nhân viên
-    user_id BIGINT NOT NULL, -- ID của người dùng (nhân viên)
-    education_level_id INT NOT NULL, -- Trình độ học vấn
-    work_date DATE NOT NULL, -- Ngày làm việc
-    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (education_level_id) REFERENCES education_level (education_level_id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-GO
-
-CREATE TABLE salary_coefficient (
-    salary_coefficient_id BIGINT IDENTITY(1,1) PRIMARY KEY,
-    salary_coefficient_value DECIMAL(20, 3) NOT NULL, -- Hệ số lương
-    update_coefficient_date DATETIME NOT NULL, -- Ngày cập nhật hệ số lương
-    role_id BIGINT NOT NULL,
-    FOREIGN KEY (role_id) REFERENCES roles (role_id)
-);
-GO
-
-CREATE TABLE employee_salary (
-    employee_salary_id BIGINT IDENTITY(1,1) PRIMARY KEY, -- ID duy nhất cho mỗi bảng lương nhân viên
-    employee_id BIGINT NOT NULL, -- ID của người dùng (nhân viên)
-    salary_base DECIMAL(20, 3) NOT NULL, -- Mức lương cơ bản
-    salary_coefficient_id BIGINT NOT NULL, -- ID Hệ số lương
-    salary_date DATE NOT NULL, -- Ngày thanh toán lương
-    FOREIGN KEY (employee_id) REFERENCES employees (employee_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (salary_coefficient_id) REFERENCES salary_coefficient (salary_coefficient_id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-GO
-
-CREATE TABLE employee_attendance (
-    employee_attendance_id BIGINT IDENTITY(1,1) PRIMARY KEY, -- ID duy nhất cho mỗi bảng chấm công nhân viên
-    employee_id BIGINT NOT NULL, -- ID của người dùng (nhân viên)
-    attendance_date DATE NOT NULL, -- Ngày chấm công
-    FOREIGN KEY (employee_id) REFERENCES employees (employee_id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-GO
-
 CREATE TABLE product_categories (
     category_id BIGINT IDENTITY(1,1) PRIMARY KEY, -- ID duy nhất cho mỗi danh mục sản phẩm
     category_name NVARCHAR(255) NOT NULL -- Tên của danh mục sản phẩm
@@ -257,70 +213,6 @@ CREATE TABLE payments_on(
 );
 GO
 
--- Bảng Nhập kho
-CREATE TABLE stock_in (
-	stock_in_id BIGINT IDENTITY(1,1) PRIMARY KEY, -- ID của phiếu nhập kho, tự tăng
-	inflow_date DATE NOT NULL,
-    employee_id BIGINT NOT NULL, -- ID của nhân viên thực hiện
-    tolal_amount_in DECIMAL(20, 3), -- Tổng giá phiếu nhập
-    note_in NVARCHAR(MAX), -- Ghi chú
-    FOREIGN KEY (employee_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-GO
-
--- Bảng Chi tiết nhập hàng
-CREATE TABLE stock_in_details (
-	stock_in_id BIGINT NOT NULL, -- ID của phiếu nhập kho
-	product_id BIGINT NOT NULL, -- ID của sản phẩm
-	quantity_in INT NOT NULL, -- Số lượng nhập
-	unit_price_in DECIMAL(20, 3) NOT NULL, -- Giá mỗi đơn vị
-	PRIMARY KEY (stock_in_id, product_id), -- Khóa chính
-	FOREIGN KEY (stock_in_id) REFERENCES stock_in(stock_in_id) ON DELETE CASCADE ON UPDATE CASCADE, -- Khóa ngoại liên kết với bảng phiếu nhập kho
-	FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE ON UPDATE CASCADE -- Khóa ngoại liên kết với bảng sản phẩm
-);
-GO
-
-CREATE TABLE support_info (
-    support_id BIGINT IDENTITY(1,1) PRIMARY KEY, -- ID duy nhất cho mỗi thông tin hỗ trợ
-    title_support NVARCHAR(MAX) NOT NULL, -- Tiêu đề hỗ trợ
-    content_support NVARCHAR(MAX) NOT NULL, -- Nội dung hỗ trợ
-    created_at DATETIME NOT NULL DEFAULT GETDATE() -- Thời gian tạo, mặc định là thời điểm hiện tại
-);
-GO
-
-CREATE TABLE support_users(
-    support_id BIGINT NOT NULL,
-    user_id BIGINT NOT NULL,
-    PRIMARY KEY(support_id,user_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (support_id) REFERENCES support_info(support_id) ON DELETE CASCADE ON UPDATE CASCADE,
-);
-Go
-
-CREATE TABLE feedback(
-    feedback_id BIGINT IDENTITY(1,1) PRIMARY KEY,
-    title_feedback NVARCHAR(MAX) NOT NULL,
-    content_feedback NVARCHAR(MAX) NOT NULL,
-    date_time_feedback NVARCHAR(MAX) NOT NULL,
-    support_id BIGINT NOT NULL,
-    FOREIGN KEY (support_id) REFERENCES support_info(support_id) ON DELETE CASCADE ON UPDATE CASCADE,
-);
-Go
-
-CREATE TABLE notiffication(
-    notif_id BIGINT IDENTITY(1,1) PRIMARY KEY,
-    notif_title NVARCHAR(MAX) NOT NULL,
-    notif_content NVARCHAR(MAX) NOT NULL,
-    notif_date DATETIME NOT NULL DEFAULT GETDATE()
-);
-Go
-CREATE TABLE list_item (
-    id INT IDENTITY(1, 1) PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-		type_item VARCHAR(1) NOT NULL,
-    cmd_top5 TEXT NOT NULL,
-    cmd_top30 TEXT NOT NULL
-);
 
 CREATE TABLE carts
 (

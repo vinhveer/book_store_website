@@ -114,105 +114,6 @@ VALUES
 ('tranducngan', 'password@123', 47),
 ('nguyentrami', 'password@123', 46);
 
-
-
-INSERT INTO education_level (education_level_name)
-VALUES
-(N'Tiểu học'),
-(N'Trung học cơ sở'),
-(N'Trung học phổ thông'),
-(N'Cao đẳng'),
-(N'Đại học'),
-(N'Thạc sĩ'),
-(N'Tiến sĩ');
-
-INSERT INTO employees (user_id, education_level_id, work_date)
-VALUES
-(32, 1, '2020-01-01'), (33, 2, '2020-02-01'), (34, 3, '2020-03-01'), (35, 4, '2020-04-01'),
-(36, 5, '2020-05-01'), (37, 6, '2020-06-01'), (38, 7, '2020-07-01'), (39, 4, '2020-08-01'),
-(40, 5, '2020-09-01'), (41, 5, '2020-10-01'), (45, 4, '2020-11-01'), (43, 4, '2020-12-01'),
-(31, 3, '2021-01-01');
-
-
-INSERT INTO salary_coefficient (salary_coefficient_value, update_coefficient_date, role_id)
-VALUES
-(1.1, '2020-01-01', 3), (1.2, '2020-01-02',3), (1.3, '2020-01-01', 2);
-
-INSERT INTO employee_salary (employee_id, salary_base, salary_coefficient_id, salary_date)
-VALUES
-(1, 10000.000, 1, '2024-03-01'), (2, 12000.000, 1, '2024-03-01'), (3, 15000.000, 1, '2024-03-01'),
-(4, 18000.000, 1, '2024-03-01'), (5, 10000.000, 2, '2024-03-01'), (6, 12000.000, 2, '2024-03-01'),
-(7, 15000.000, 2, '2024-03-01'), (8, 18000.000, 2, '2024-03-01'), (9, 10000.000, 3, '2024-03-01'),
-(10, 12000.000, 3, '2024-03-01'), (11, 15000.000, 3, '2024-03-01'), (12, 18000.000, 3, '2024-03-01'),
-(13, 10000.000, 3, '2024-03-01');
-
-INSERT INTO employee_attendance (employee_id, attendance_date)
-VALUES
-(1, '2024-03-01'),
-(1, '2024-03-02'),
-(1, '2024-03-03'),
-(1, '2024-03-04'),
-(1, '2024-03-05'),
-(2, '2024-03-01'),
-(2, '2024-03-02'),
-(2, '2024-03-03'),
-(2, '2024-03-04'),
-(2, '2024-03-05'),
-(3, '2024-03-01'),
-(3, '2024-03-02'),
-(3, '2024-03-03'),
-(3, '2024-03-04'),
-(3, '2024-03-05'),
-(4, '2024-03-01'),
-(4, '2024-03-02'),
-(4, '2024-03-03'),
-(4, '2024-03-04'),
-(4, '2024-03-05'),
-(5, '2024-03-01'),
-(5, '2024-03-02'),
-(5, '2024-03-03'),
-(5, '2024-03-04'),
-(5, '2024-03-05'),
-(6, '2024-03-01'),
-(6, '2024-03-02'),
-(6, '2024-03-03'),
-(6, '2024-03-04'),
-(6, '2024-03-05'),
-(7, '2024-03-01'),
-(7, '2024-03-02'),
-(7, '2024-03-03'),
-(7, '2024-03-04'),
-(7, '2024-03-05'),
-(8, '2024-03-01'),
-(8, '2024-03-02'),
-(8, '2024-03-03'),
-(8, '2024-03-04'),
-(8, '2024-03-05'),
-(9, '2024-03-01'),
-(9, '2024-03-02'),
-(9, '2024-03-03'),
-(9, '2024-03-04'),
-(9, '2024-03-05'),
-(10, '2024-03-01'),
-(10, '2024-03-02'),
-(10, '2024-03-03'),
-(10, '2024-03-04'),
-(10, '2024-03-05'),
-(11, '2024-03-01'),
-(11, '2024-03-02'),
-(11, '2024-03-03'),
-(11, '2024-03-04'),
-(11, '2024-03-05'),
-(12, '2024-03-01'),
-(12, '2024-03-02'),
-(12, '2024-03-03'),
-(12, '2024-03-04'),
-(12, '2024-03-05'),
-(13, '2024-03-01'),
-(13, '2024-03-02'),
-(13, '2024-03-03'),
-(13, '2024-03-04'),
-(13, '2024-03-05');
 -- Chèn dữ liệu vào bảng product_categories
 INSERT INTO product_categories (category_name) VALUES
     ('Books'),('Eraser'),('Pen'),('Calculator'),('Paper'),('Ruler'),('Scissors'),('Cutting knife'),('Cover'),('Hole punch'),('Stapler'),('Battery'),('Notebook'),('Clip'),('Tape');
@@ -2300,35 +2201,8 @@ INSERT INTO stock_in_details (stock_in_id, product_id, quantity_in, unit_price_i
 (41, 404, 100, 20000.00),
 (41, 405, 100, 20000.00),
 (41, 406, 100, 20000.00);
-INSERT INTO list_item (title, type_item, cmd_top5, cmd_top30) VALUES
-(
-	 'New books',
-	 'b',
-	 'SELECT TOP 6 pr.product_id ,bo.book_name, bo.book_publication_year, pr.product_price, pr.product_image, au.author_name
-        FROM books bo
-        INNER JOIN products pr ON bo.product_id = pr.product_id
-        INNER JOIN book_author ba ON bo.product_id = ba.product_id
-        INNER JOIN author au ON au.author_id = ba.author_id
-        ORDER BY book_publication_year DESC;',
-	 'SELECT TOP 30 pr.product_id ,bo.book_name, bo.book_publication_year, pr.product_price, pr.product_image, au.author_name
-        FROM books bo
-        INNER JOIN products pr ON bo.product_id = pr.product_id
-        INNER JOIN book_author ba ON bo.product_id = ba.product_id
-        INNER JOIN author au ON au.author_id = ba.author_id
-        ORDER BY book_publication_year DESC;'
-),
-(
-	 'Top Stationery',
-	 'P',
-	 'SELECT TOP 6 pr.product_id ,ot.others_product_name, pr.product_image, pr.product_price, br.brand_name
-        FROM others_products ot
-        INNER JOIN products pr ON ot.product_id = pr.product_id
-        INNER JOIN brands br ON br.brand_id = ot.others_product_brand_id;',
-	 'SELECT TOP 30 pr.product_id ,ot.others_product_name, pr.product_image, pr.product_price, br.brand_name
-        FROM others_products ot
-        INNER JOIN products pr ON ot.product_id = pr.product_id
-        INNER JOIN brands br ON br.brand_id = ot.others_product_brand_id;'
-);
+
+
 INSERT INTO customers (user_id)
 VALUES (1),
        (2),
@@ -2372,32 +2246,3 @@ VALUES (1, 101, 2, 0.00),
        (5, 405, 2, 0.00),
        (5, 305, 2, 5.00),
        (4, 105, 2, 0.00);
-INSERT INTO support_info (title_support, content_support, created_at)
-VALUES
-    (N'Hỗ trợ về cài đặt', N'Hướng dẫn cài đặt phần mềm mới', GETDATE()),
-    (N'Hỗ trợ kỹ thuật', N'Giải đáp thắc mắc về lỗi phần mềm', GETDATE()),
-    (N'Hỗ trợ thanh toán', N'Hướng dẫn thanh toán hóa đơn', GETDATE()),
-    (N'Hỗ trợ khách hàng', N'Hỗ trợ cho các yêu cầu của khách hàng', GETDATE()),
-    (N'Hỗ trợ sản phẩm', N'Thông tin và hướng dẫn về sản phẩm', GETDATE()),
-    (N'Hỗ trợ kinh doanh', N'Hỗ trợ về các vấn đề liên quan đến kinh doanh', GETDATE());
-INSERT INTO support_users (support_id, user_id)
-VALUES
-    (1, 1),
-    (2, 1),
-    (3, 3),
-    (4, 2),
-    (5, 5),
-    (6, 2);
-INSERT INTO notiffication (notif_title, notif_content, notif_date)
-VALUES
-    (N'Thông báo mới', N'Bạn có một thông báo mới', GETDATE()),
-    (N'Cập nhật phần mềm', N'Phiên bản mới của phần mềm đã được phát hành', GETDATE()),
-    (N'Thanh toán thành công', N'Hóa đơn thanh toán đã được xác nhận', GETDATE()),
-    (N'Thông báo quan trọng', N'Thông báo quan trọng về việc sửa lỗi', GETDATE()),
-    (N'Thông tin sản phẩm mới', N'Thông tin về sản phẩm mới đã được cập nhật', GETDATE()),
-    (N'Thông báo hệ thống', N'Thông báo về việc bảo trì hệ thống', GETDATE());
-INSERT INTO feedback (title_feedback, content_feedback, date_time_feedback, support_id)
-VALUES
-(N'Phản hồi', N'Nội dung phản hồi 1', GETDATE(), 1),
-(N'Phản hồi', N'Nội dung phản hồi 2', GETDATE(), 2),
-(N'Phản hồi', N'Nội dung phản hồi 3', GETDATE(), 3);

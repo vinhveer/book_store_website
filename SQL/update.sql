@@ -54,7 +54,7 @@ UPDATE users
     $query_update_user = sqlsrv_query($conn, $sql_edit_user);
     if ($query_update_user === false) {
         die( print_r( sqlsrv_errors(), true));
-    } else {}
+    } else {
         $page = $_GET['page'];
         $edit = $_GET['edit'];
         $username = $_POST['username'];
@@ -66,10 +66,16 @@ UPDATE user_accounts
         $result_update_account = sqlsrv_query($conn, $sql_upadte_account);
         if ($result_update_account === false) {
             die( print_r( sqlsrv_errors(), true));
-        }else{}
+        }else{
             if ($edit == 1) header(location: ../../account_customer.php?page_layout=customer&page=$page);/-strong/-heart:>:o:-((:-helse if($edit == 2) header(location: ../../account_admin.php?page_layout=admin&page=$page);
             else if($edit == 3 )  header(location: ../../account_employee.php?page_layout=employee&page=$page);
-            else  echo "Lỗi role không tồn tại: . sqlsrv_errors($dbconnect);
+            else  echo "Lỗi role không tồn tại": . sqlsrv_errors($dbconnect);
         }
     }
-}
+
+DELETE FROM users where user_id = $user_id;
+
+DELETE FROM order_details_on where product_id = $product_id;
+
+DELETE FROM products where product_id = $product_id
+

@@ -79,3 +79,47 @@ DELETE FROM order_details_on where product_id = $product_id;
 
 DELETE FROM products where product_id = $product_id
 
+-- Lệnh SQL để xóa đơn hàng trực tuyến
+DELETE FROM orders_online WHERE order_id = :order_id;
+
+-- Lệnh SQL để xóa đơn hàng ngoại tuyến
+DELETE FROM orders_offline WHERE order_id = :order_id;
+
+-- Lệnh SQL để xóa sản phẩm khỏi chi tiết đơn hàng trực tuyến
+DELETE FROM order_details_on WHERE product_id = :product_id;
+
+-- Lệnh SQL để xóa sản phẩm khỏi chi tiết đơn hàng ngoại tuyến
+DELETE FROM order_details_off WHERE product_id = :product_id;
+
+-- Lệnh SQL để cập nhật thông tin sản phẩm và chi tiết đơn hàng trực tuyến
+UPDATE products SET product_price = :price_unit WHERE product_id = :product_id;
+UPDATE order_details_on SET quantity = :quantity, discount = :discount WHERE product_id = :product_id;
+
+-- Lệnh SQL để cập nhật thông tin sản phẩm và chi tiết đơn hàng ngoại tuyến
+UPDATE products SET product_price = :price_unit WHERE product_id = :product_id;
+UPDATE order_details_off SET quantity = :quantity, discount = :discount WHERE product_id = :product_id;
+
+-- Lệnh SQL để cập nhật thông tin đơn hàng trực tuyến
+UPDATE orders_online SET
+    order_date_on = :date_order,
+    customer_id = :customer,
+    status_on = :status,
+    note_on = :note,
+    total_amount_on = :total
+WHERE order_id = :order_id;
+
+-- Lệnh SQL để thêm hoặc cập nhật thông tin người giao hàng cho đơn hàng trực tuyến
+INSERT INTO shipper (order_id, employee_id, delivery_status)
+VALUES (:order_id, :employee_id, :delivery_status);
+-- Hoặc nếu đã tồn tại
+UPDATE shipper SET
+    employee_id = :employee_id,
+    delivery_status = :delivery_status
+WHERE order_id = :order_id;
+
+-- Lệnh SQL để cập nhật thông tin đơn hàng ngoại tuyến
+UPDATE orders_offline SET
+    order_date_off = :date_order,
+    note_off = :note,
+    total_amount_off = :total
+WHERE order_id = :order_id;

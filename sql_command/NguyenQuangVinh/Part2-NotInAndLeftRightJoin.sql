@@ -1,3 +1,4 @@
+-- Determines the product type, price, and various attributes for a given product ID
 SELECT
     CASE
         WHEN b.product_id IS NOT NULL THEN 'Book'
@@ -21,49 +22,55 @@ SELECT
     COALESCE(op.others_product_color, NULL) AS color,
     COALESCE(op.others_product_material, NULL) AS material,
     COALESCE(op.others_product_weight, NULL) AS weight
-    FROM
-        products p
-    LEFT JOIN books b ON p.product_id = b.product_id
-    LEFT JOIN others_products op ON p.product_id = op.product_id
-    LEFT JOIN book_categories bc ON b.book_category_id = bc.book_category_id
-    LEFT JOIN book_languages bl ON b.book_language_id = bl.book_language_id
-    LEFT JOIN book_publishers bp ON b.book_publisher_id = bp.book_publisher_id
-    LEFT JOIN brands br ON op.others_product_brand_id = br.brand_id
-    WHERE
-        p.product_id = $product_id
+FROM
+    products p
+LEFT JOIN books b ON p.product_id = b.product_id
+LEFT JOIN others_products op ON p.product_id = op.product_id
+LEFT JOIN book_categories bc ON b.book_category_id = bc.book_category_id
+LEFT JOIN book_languages bl ON b.book_language_id = bl.book_language_id
+LEFT JOIN book_publishers bp ON b.book_publisher_id = bp.book_publisher_id
+LEFT JOIN brands br ON op.others_product_brand_id = br.brand_id
+WHERE
+    p.product_id = $product_id;
 
+-- Retrieves online orders along with delivery status, customer, and employee names
 SELECT oo.order_id, oo.order_date_on,
-                    COALESCE(s.delivery_status, 'Scheduled') AS delivery_status,
-                    u.full_name, ue.full_name as employee_name,
-                    oo.status_on, oo.note_on
-                    FROM orders_online AS oo
-                    JOIN customers AS c ON oo.customer_id = c.customer_id
-                    JOIN users AS u ON c.user_id = u.user_id
-                    LEFT JOIN shipper AS s ON oo.order_id = s.order_id
-                    LEFT JOIN employees AS e ON s.employee_id = e.employee_id
-                    LEFT JOIN users AS ue ON e.user_id = ue.user_id
-                    ORDER BY oo.order_date_on DESC
+    COALESCE(s.delivery_status, 'Scheduled') AS delivery_status,
+    u.full_name, ue.full_name as employee_name,
+    oo.status_on, oo.note_on
+FROM orders_online AS oo
+JOIN customers AS c ON oo.customer_id = c.customer_id
+JOIN users AS u ON c.user_id = u.user_id
+LEFT JOIN shipper AS s ON oo.order_id = s.order_id
+LEFT JOIN employees AS e ON s.employee_id = e.employee_id
+LEFT JOIN users AS ue ON e.user_id = ue.user_id
+ORDER BY oo.order_date_on DESC;
 
+-- Selects all books that do not have an associated author
 SELECT b.*
 FROM books b
 RIGHT JOIN book_author ba ON b.product_id = ba.product_id
 WHERE ba.author_id IS NULL;
 
+-- Selects all products that do not belong to any category
 SELECT p.*
 FROM products p
 RIGHT JOIN product_categories pc ON p.category_id = pc.category_id
 WHERE p.category_id IS NULL;
 
+-- Selects all other products that do not have an associated brand
 SELECT op.*
 FROM others_products op
 RIGHT JOIN brands b ON op.others_product_brand_id = b.brand_id
 WHERE op.others_product_brand_id IS NULL;
 
+-- Selects all books that do not have an associated publisher
 SELECT b.*
 FROM books b
 RIGHT JOIN book_publishers bp ON b.book_publisher_id = bp.book_publisher_id
 WHERE b.book_publisher_id IS NULL;
 
+-- Selects all books that do not have an associated author
 SELECT *
 FROM books
 WHERE product_id NOT IN (
@@ -71,6 +78,7 @@ WHERE product_id NOT IN (
     FROM book_author
 );
 
+-- Selects all products that do not belong to any category
 SELECT *
 FROM products
 WHERE category_id NOT IN (
